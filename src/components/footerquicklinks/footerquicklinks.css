@@ -1,0 +1,42 @@
+.mb-50 {
+  margin-bottom: 50px;
+}
+.shipping_inner {
+  border: 1px solid #f0f0f0;
+  padding: 19px 5px;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.single_shipping {
+  display: flex;
+  justify-content: center;
+  padding: 15px 0;
+  border-left: 1px solid #f0f0f0;
+  width: 25%;
+  float: left;
+}
+.single_shipping:first-child {
+  border: 0;
+}
+.shipping_icone {
+  margin-right: 14px;
+}
+.shipping_content h2 {
+  font-size: 14px;
+  line-height: 20px;
+  text-transform: capitalize;
+  font-weight: 700;
+  margin-bottom: 4px;
+  font-family: "Open Sans", sans-serif;
+}
+.shipping_content p {
+  font-size: 13px;
+  line-height: 18px;
+}
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .single_shipping {
+    margin-bottom: 12px;
+    width: 50%;
+    border: 0;
+  }
+}
