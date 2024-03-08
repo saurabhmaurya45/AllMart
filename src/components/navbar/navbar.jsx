@@ -1,13 +1,17 @@
-import React, {  useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import logoPath from "../../assets/images/logo.png";
 import "../../components/navbar/navbar.css";
 import WishList from "../../context/wishList";
 import { Link } from "react-router-dom";
 
 function Navbar() {
-    const wishList = useContext(WishList);
-    console.log(wishList)
-    const [wishListLength, setWishListLength] = useState(wishList.length);
+    let wishList = useContext(WishList);
+    // console.log(wishList)
+    const [wishListLength, setWishListLength] = useState(wishList?.length);
+
+    useEffect(() => {
+        setWishListLength(wishList?.length);
+    }, [WishList]);
 
     const navItems = [
         {
@@ -50,9 +54,9 @@ function Navbar() {
                     <div className="container-fluid">
                         <div className="row">
                             <div className="col-md-2 my-auto d-none d-sm-none d-md-block d-lg-block">
-                                <a className="navbar-brand" href="/">
+                                <Link className="navbar-brand" to={"/"}>
                                     <img src={logoPath} width="50" height="50" alt="" className="rounded" />
-                                </a>
+                                </Link>
                                 {/* <h5 className="brand-name">AllMart</h5>  */}
                             </div>
 
@@ -70,13 +74,13 @@ function Navbar() {
                                 <ul className="nav justify-content-end">
 
                                     <li className="nav-item">
-                                        <a className="nav-link" href="#">
+                                        <Link className="nav-link" to="/cart">
                                             <i className="fa fa-shopping-cart"></i> Cart (0)
-                                        </a>
+                                        </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to={"/wishlist"}>
-                                            <i className="fa fa-heart"></i> Wishlist ({wishListLength})
+                                            <i className="fa fa-heart"></i> Wishlist ({wishList?.length})
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
@@ -84,11 +88,11 @@ function Navbar() {
                                             <i className="fa fa-user"></i> Username
                                         </a>
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><a className="dropdown-item" href="#"><i className="fa fa-user"></i> Profile</a></li>
-                                            <li><a className="dropdown-item" href="#"><i className="fa fa-list"></i> My Orders</a></li>
-                                            <li><a className="dropdown-item" href="#"><i className="fa fa-heart"></i> My Wishlist</a></li>
-                                            <li><a className="dropdown-item" href="#"><i className="fa fa-shopping-cart"></i> My Cart</a></li>
-                                            <li><a className="dropdown-item" href="#"><i className="fa fa-sign-out"></i> Logout</a></li>
+                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-user"></i> Profile</Link></li>
+                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-list"></i> My Orders</Link></li>
+                                            <li><Link className="dropdown-item" to="/wishlist"><i className="fa fa-heart"></i> My Wishlist</Link></li>
+                                            <li><Link className="dropdown-item" to="/cart"><i className="fa fa-shopping-cart"></i> My Cart</Link></li>
+                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-sign-out"></i> Logout</Link></li>
                                         </ul>
                                     </li>
                                 </ul>
@@ -98,9 +102,9 @@ function Navbar() {
                 </div>
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid">
-                        <a className="navbar-brand d-block d-sm-block d-md-none d-lg-none" href="/">
+                        <Link className="navbar-brand d-block d-sm-block d-md-none d-lg-none" to={"/"}>
                             AllMart
-                        </a>
+                        </Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
@@ -108,10 +112,10 @@ function Navbar() {
                             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                                 {
                                     navItems.map((item, index) => {
-                                        
+
                                         return (
                                             <li className="nav-item" key={index}>
-                                                <a className="nav-link" href={item.link}>{item.name}</a>
+                                                <Link className="nav-link" to={item.link}>{item.name}</Link>
                                             </li>
                                         )
                                     })

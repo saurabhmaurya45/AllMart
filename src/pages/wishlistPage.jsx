@@ -1,24 +1,18 @@
-import React from 'react';
-import { useContext } from 'react';
-import AllProductData from '../context/allProducts';
-import SingleProduct from '../components/singleproduct/singleproduct';
+import React, { useContext } from "react";  
+import WishList from "../context/wishList";
+import SingleProduct from "../components/singleproduct/singleproduct";
 
+export default function WishlistPage() {
+    const wishList = localStorage.getItem("wishListData") ? JSON.parse(localStorage.getItem("wishListData")) : [];
 
-
-export default function AllProductPage() {
-    const productData = useContext(AllProductData);
-    // console.log(productData.products);
     return (
         <>
+            <h1 className="text-center">WishList</h1>
             <div className="container-fluid m-3 ">
                 <div className="d-flex">
-                    {/* <div className="col-md-2">
-                        <Filter  />
-                    </div>  */}
                     <div className="col-md-12  d-flex justify-items-center flex-wrap  gap-4">
                             {
-                                productData.products?.map((product) => {
-                                    
+                                wishList?.map((product) => {
                                     return (
                                         <div key={product.id} className=" p-2 border" style={{width:"23%"}}>
                                             <SingleProduct SingleProduct={product} />

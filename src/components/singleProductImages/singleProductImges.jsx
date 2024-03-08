@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import "./singleProductImages.css";
 
 
 export default function SingleProductImages(props) {
-    const [thumbnail, setThumbnail] = useState(props.thumbnail);
+    const [thumbnail, setThumbnail] = useState("");
 
+    useEffect(() => {
+        setThumbnail(props.thumbnail);
+        // console.log(thumbnail);
+    },[])
 
     return (
         <>
@@ -16,9 +20,11 @@ export default function SingleProductImages(props) {
                 <div className="d-flex justify-content-center mb-3">
                     {
                         props.images.map((image, index) => {
+                            {/* console.log(image); */}
                             return (
                                 <>
                                     <a data-fslightbox="mygalley" className="border mx-1 rounded-2" data-type="image" onMouseOver={() => (setThumbnail(image))} key={index}>
+
                                         <img width="60" height="60" className="rounded-2" src={image} key={index}/>
                                     </a>
                                 </>

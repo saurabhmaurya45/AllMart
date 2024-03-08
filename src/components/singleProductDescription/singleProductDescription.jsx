@@ -1,9 +1,19 @@
-import React from "react";
-import Quantity from "../quantity/quantity";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import "./singleProductDescription.css";
 
 export default function SingleProductDescription(props) {
-    // console.log(props.product);
+    const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
+    const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
+
+
+    const addToCartButtonHandler = (product) => {
+
+    }
+    const addToWishListButtonHandler = (product) => {
+
+    }
+
 
     return (
         <>
@@ -46,11 +56,19 @@ export default function SingleProductDescription(props) {
                     </div>
                     <hr />
                     <form>
-                        <Quantity stock={props.product ? props.product.stock : "No stock"} />
+                        {/* <Quantity stock={props.product ? props.product.stock : "No stock"} /> */}
                         <div className="d-flex justify-start gap-2" >
-                            <a href="#" className="btn btn-warning shadow-0 px-4 py-2 "> Buy now </a>
-                            <a href="#" className="btn btn-primary shadow-0 px-4 py-2 "> <i className="me-1 fa fa-shopping-basket"></i> Add to cart </a>
-                            <a href="#" className="btn btn-light border border-secondary py-2 icon-hover px-3 "> <i className="me-1 fa fa-heart fa-lg"></i> Save </a>
+                            {/* <Link to="/" className="btn btn-warning shadow-0 px-4 py-2 "> Buy now </Link> */}
+                            {
+                                cart.find((item) => item.id === props?.product?.id) ? <Link to="/cart" className="btn btn-primary shadow-0 px-4 py-2" >Go to Cart</Link> : <Link className="btn btn-primary shadow-0 px-4 py-2" onClick={() => { addToCartButtonHandler(props.product) }}>Add to cart</Link>
+                            }
+                            {
+                                wishList.find((item) => item.id === props?.product?.id) ? <Link to="#" className="btn btn-danger border border-secondary py-2 icon-hover px-3 " onClick={() => { addToWishListButtonHandler(props.product) }}> <i className="me-1 fa fa-heart fa-lg"></i> Saved </Link>
+                                    : <Link to="#" className="btn btn-light border border-secondary py-2 icon-hover px-3 " onClick={() => { addToWishListButtonHandler(props.product) }}> <i className="me-1 fa fa-heart fa-lg"></i> Save </Link>
+
+
+                            }
+
 
                         </div>
                     </form>

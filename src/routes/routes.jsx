@@ -7,8 +7,8 @@ import App from "../App";
 import ErrorPage from "../pages/errorpage";
 import SingleProductPage from "../pages/singleproductpage";
 import AllProductPage from "../pages/allproductpage";
-import ShoppingCart from "../components/shoppingcart/shoppingcart";
-import Wishlist from "../pages/wishlist";
+import ShoppingCartPage from "../pages/shoppingcartpage";
+import WishlistPage from "../pages/wishlistPage";
 
 const appRoutes = createBrowserRouter([
   {
@@ -29,11 +29,11 @@ const appRoutes = createBrowserRouter([
       },
       {
         path : "/cart",
-        element : <ShoppingCart />
+        element : <ShoppingCartPage />
       },
       {
         path : "/wishlist",
-        element : <Wishlist />
+        element : <WishlistPage />
       },
       {
         path : "/testing",

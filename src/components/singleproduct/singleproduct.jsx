@@ -1,7 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./singleproduct.css";
 import WishListHeart from "../wishListHeart/wishListHeart";
+import CartIcon from "../cartIcon/cartIcon";
 
 
 
@@ -15,11 +16,13 @@ export default function SingleProduct(props) {
                     <img className="pic-1" src={(singleProductData.images[1] ? singleProductData.images[1] : singleProductData.images[0])} />
                     <img className="pic-2" src={singleProductData.images[2] ? singleProductData.images[2] : singleProductData.images[0]} />
                 </Link>
-                <WishListHeart singleProductData={singleProductData?singleProductData: "No data"} />
+                <WishListHeart singleProductData={singleProductData?singleProductData: "No data"} key={singleProductData?.id}/>
                 
                 <ul className="product-links">
                     <li><Link to={"/singleproduct/" + singleProductData?.id}><i className="fa fa-search"></i></Link></li>
-                    <li><a href="#"><i className="fa-solid fa-cart-plus"></i></a></li>
+                    <li>
+                        <CartIcon singleProductData={singleProductData} />
+                    </li>
                     {/* <li><a href="#"><i className="fa fa-random"></i></a></li> */}
                 </ul>
             </div>
