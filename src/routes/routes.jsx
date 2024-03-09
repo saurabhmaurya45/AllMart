@@ -9,6 +9,8 @@ import SingleProductPage from "../pages/singleproductpage";
 import AllProductPage from "../pages/allproductpage";
 import ShoppingCartPage from "../pages/shoppingcartpage";
 import WishlistPage from "../pages/wishlistPage";
+import CheckoutPage from "../pages/checkoutPage";
+import ConfirmationPage from "../pages/confirmationPage";
 
 const appRoutes = createBrowserRouter([
   {
@@ -34,6 +36,14 @@ const appRoutes = createBrowserRouter([
       {
         path : "/wishlist",
         element : <WishlistPage />
+      },
+      {
+        path : "/checkout",
+        element : <CheckoutPage />
+      },
+      {
+        path : "/confirmation",
+        element : <ConfirmationPage />
       },
       {
         path : "/testing",

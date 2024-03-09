@@ -1,17 +1,26 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, {  useState, useEffect } from "react";
 import logoPath from "../../assets/images/logo.png";
 import "../../components/navbar/navbar.css";
-import WishList from "../../context/wishList";
+
 import { Link } from "react-router-dom";
 
-function Navbar() {
-    let wishList = useContext(WishList);
-    // console.log(wishList)
-    const [wishListLength, setWishListLength] = useState(wishList?.length);
 
-    useEffect(() => {
-        setWishListLength(wishList?.length);
-    }, [WishList]);
+
+function Navbar() {
+    const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
+    const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
+
+    const updateWishList = ()=>{
+        const localData = JSON.parse(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem("wishListData")) : []);
+        setWishList(localData);
+    }
+
+    const updateCart = ()=>{
+        const localData = JSON.parse(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem("cartData")) : []);
+        setCart(localData);
+    }
+
+    
 
     const navItems = [
         {
@@ -61,9 +70,9 @@ function Navbar() {
                             </div>
 
                             <div className="col-md-5 my-auto">
-                                <form role="search">
+                                <form role="search" method="get" action="/shop">
                                     <div className="input-group">
-                                        <input type="search" placeholder="Search your product" className="form-control" />
+                                        <input type="search" placeholder="Search your product" className="form-control" name="search"/>
                                         <button className="btn bg-white" type="submit">
                                             <i className="fa fa-search"></i>
                                         </button>
@@ -75,7 +84,7 @@ function Navbar() {
 
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/cart">
-                                            <i className="fa fa-shopping-cart"></i> Cart (0)
+                                            <i className="fa fa-shopping-cart"></i> Cart ({cart?.length})
                                         </Link>
                                     </li>
                                     <li className="nav-item">
@@ -133,6 +142,8 @@ function Navbar() {
         </>
     );
 }
+
+
 
 
 export default Navbar;

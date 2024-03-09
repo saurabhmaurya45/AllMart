@@ -1,19 +1,40 @@
-import React, { useContext, useEffect, useState } from "react";
-import CartData from "../context/cartContext";
+import React, { useEffect, useState } from "react";
 import CartItem from "../components/shoppingcart/cartItem";
+import { Link } from "react-router-dom";
 
 const ShoppingCartPage = () => {
     const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
-    const [updateCart, setUpdateCart] = useState(false);
+    const [price, setPrice] = useState(0);
+    const [toalPrice, setTotalPrice] = useState(0);
+    const [tax, setTax] = useState(0);
+    const [shipping, setShipping] = useState(0);
+    const [quantity, setQuantity] = useState(1);
+    const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
 
-    const updateCartHandler = () => {
-        setUpdateCart(true);
-    }
+    
 
     useEffect(() => {
-        console.log("parent cart updated")
-    }, [updateCart])
+        const cart = localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : [];
+        if (cart.length !== 0) {
+            console.log("reload called")
+            let totalPrice = 0;
+            let totalPriceWithoutTax = 0;
 
+            cart?.forEach(item => {
+                totalPriceWithoutTax += item.price * item.quantity;
+            });
+
+            const tax = Math.round(totalPriceWithoutTax * 0.1);
+            const shipping = totalPriceWithoutTax > 1000 ? 0 : 50;
+
+            totalPrice = totalPriceWithoutTax + tax + shipping;
+            setTax(tax);
+            setShipping(shipping );
+            setPrice(totalPriceWithoutTax);
+            setTotalPrice(totalPrice);
+            
+        }
+    }, [cart, wishList, quantity])
 
     return (
         <div>
@@ -29,8 +50,10 @@ const ShoppingCartPage = () => {
                                     {
                                         cart?.map((product, index) => (
                                             <CartItem product={product} key={index}
-                                                updateCartHandler={updateCartHandler}    
-                                             />
+                                                setCart = {setCart}
+                                                setWishList =  {setWishList}
+                                                setQuantity = {setQuantity}
+                                            />
                                         ))}
 
                                 </div>
@@ -54,12 +77,16 @@ const ShoppingCartPage = () => {
                                 <div className="card-body">
                                     <ul className="list-group list-group-flush">
                                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 pb-0">
-                                            Products
-                                            <span>$53.98</span>
+                                            Products Price
+                                            <span>Rs. {price}</span>
                                         </li>
                                         <li className="list-group-item d-flex justify-content-between align-items-center px-0">
-                                            Shipping
-                                            <span>Gratis</span>
+                                            Shipping Charge
+                                            <span>Rs. {shipping}</span>
+                                        </li>
+                                        <li className="list-group-item d-flex justify-content-between align-items-center px-0">
+                                            Tax
+                                            <span>Rs. {tax}</span>
                                         </li>
                                         <li className="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
                                             <div>
@@ -68,10 +95,10 @@ const ShoppingCartPage = () => {
                                                     <p className="mb-0">(including VAT)</p>
                                                 </strong>
                                             </div>
-                                            <span><strong>$53.98</strong></span>
+                                            <span><strong>Rs. {toalPrice}</strong></span>
                                         </li>
                                     </ul>
-                                    <button type="button" className="btn btn-primary btn-lg btn-block">Go to checkout</button>
+                                    <Link to="/checkout" type="button" className="btn btn-primary btn-lg btn-block">Go to checkout</Link>
                                 </div>
                             </div>
                         </div>

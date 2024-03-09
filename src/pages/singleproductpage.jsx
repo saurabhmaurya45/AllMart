@@ -58,17 +58,17 @@ function SingleProductPage() {
             </section>
 
             <section className="py-5">
-                <div className="container">
+                <div className="container-fluid">
                     <h2 className="mb-5 text-left">Related Products</h2>
-                    <div className="row">
+                    <div className="d-flex flex-wrap justify-evenly gap-3">
                         {
                             similarProduct?.map((item, index) => {
                                 if (product.id !== item.id) {
                                     return (
-                                        <div className="col-md-3 col-sm-6" key={index} style={{ width: "20%" }}>
+                                        <div className=" border" key={index} >
                                             <SingleProduct SingleProduct={item} />
                                         </div>
-                                    )
+                                    ) 
                                 }
                             })
                         }

@@ -3,12 +3,7 @@ import { useState } from 'react';
 import Quantity from '../quantity/quantity';
 
 
-export default function CartItem(props) {
-    const product = props.product;
-
-    const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
-    const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
-
+export default function CartItem({ product, setCart, setWishList, setQuantity}) {
 
     const wishListHandler = (data) => {
         // Retrieve existing data from local storage
@@ -42,9 +37,7 @@ export default function CartItem(props) {
         setCart(updatedData);
     }
 
-    useEffect(() => {
-        props.updateCartHandler();
-    },[cart, wishList])
+    
 
     return (
         <>
@@ -72,7 +65,7 @@ export default function CartItem(props) {
 
                 <div className="col-lg-4 col-md-6 mb-4 mb-lg-0">
                     <div className="d-flex" style={{ maxWidth: "300px" }}>
-                        <Quantity product={product} updateCartHandler={props.updateCartHandler}/>
+                        <Quantity productId={product.id} setQuantity={setQuantity} />
 
                     </div>
                     <p className="text-start text-md-center"><strong>Rs.{product.price}</strong></p>

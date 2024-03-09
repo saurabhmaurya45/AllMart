@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 // import ReactDOM from "react-dom/client";
 import { Outlet } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './Redux/store';
 
 
 import './App.css';
@@ -18,7 +20,7 @@ export default function App() {
   const [cartData, setCartData] = useState([]);
 
   const fetchData1 = async () => {
-    const response = await fetch("https://dummyjson.com/products?limit=10");
+    const response = await fetch("https://dummyjson.com/products?limit=40");
     const data = await response.json();
     // console.log(data.products[0].id)
     setProductData(data);
@@ -41,13 +43,15 @@ export default function App() {
     <AllProductData.Provider value={productData}>
       <AllCategories.Provider value={allCategories}>
         <WishList.Provider value={wishList}>
-        <CartData.Provider value={cartData}>
-          <div className="App">
-            <Navbar />
-            <Outlet />
-            <Footer />
-          </div>
-        </CartData.Provider>
+          <CartData.Provider value={cartData}>
+            <Provider store={store}>
+              <div className="App">
+                <Navbar />
+                <Outlet />
+                <Footer />
+              </div>
+            </Provider>
+          </CartData.Provider>
         </WishList.Provider>
       </AllCategories.Provider>
     </AllProductData.Provider>

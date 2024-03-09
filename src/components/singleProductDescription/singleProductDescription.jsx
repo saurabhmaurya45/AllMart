@@ -8,10 +8,12 @@ export default function SingleProductDescription(props) {
 
 
     const addToCartButtonHandler = (product) => {
-
+        setCart([...cart, {...product, "quantity": 1}]);
+        localStorage.setItem('cartData', JSON.stringify([...cart, product]));
     }
     const addToWishListButtonHandler = (product) => {
-
+        setWishList([...wishList, product]);
+        localStorage.setItem('wishListData', JSON.stringify([...wishList, product]));
     }
 
 
@@ -60,11 +62,12 @@ export default function SingleProductDescription(props) {
                         <div className="d-flex justify-start gap-2" >
                             {/* <Link to="/" className="btn btn-warning shadow-0 px-4 py-2 "> Buy now </Link> */}
                             {
-                                cart.find((item) => item.id === props?.product?.id) ? <Link to="/cart" className="btn btn-primary shadow-0 px-4 py-2" >Go to Cart</Link> : <Link className="btn btn-primary shadow-0 px-4 py-2" onClick={() => { addToCartButtonHandler(props.product) }}>Add to cart</Link>
+                                cart.find((item) => item.id === props?.product?.id) ? <Link to="/cart" className="btn btn-primary shadow-0 px-4 py-2" >Go to Cart</Link> 
+                                : <Link className="btn btn-primary shadow-0 px-4 py-2" onClick={() => { addToCartButtonHandler(props.product) }}>Add to cart</Link>
                             }
                             {
                                 wishList.find((item) => item.id === props?.product?.id) ? <Link to="#" className="btn btn-danger border border-secondary py-2 icon-hover px-3 " onClick={() => { addToWishListButtonHandler(props.product) }}> <i className="me-1 fa fa-heart fa-lg"></i> Saved </Link>
-                                    : <Link to="#" className="btn btn-light border border-secondary py-2 icon-hover px-3 " onClick={() => { addToWishListButtonHandler(props.product) }}> <i className="me-1 fa fa-heart fa-lg"></i> Save </Link>
+                                    : <Link to="#" className="btn btn-light border border-secondary py-2 icon-hover px-3 " onClick={() => { addToWishListButtonHandler(props.product) }}> <i className="me-1 fa fa-heart fa-lg"></i> Save for Later</Link>
 
 
                             }

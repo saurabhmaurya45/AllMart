@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 
+
 export default function WishListHeart(props) {
     const { singleProductData } = props;
     const [wishList, setWishList] = useState([]);
@@ -9,7 +10,7 @@ export default function WishListHeart(props) {
 
     });
     const [isExist, setIsExist] = useState(false);
-
+    
     const addDataToLocalStorage = (data) => {
         // Retrieve existing data from local storage
         const existingData = JSON.parse(localStorage.getItem('wishListData')) || [];
@@ -28,10 +29,12 @@ export default function WishListHeart(props) {
 
         // Update state with the new data
         setWishList(updatedData);
+        
     };
 
     const handleWishList = (data) => {
         addDataToLocalStorage(data);
+        props.setUpdateWishList && props.setUpdateWishList((prev) => prev + 1);
     };
 
     // Update local storage when wish list changes
