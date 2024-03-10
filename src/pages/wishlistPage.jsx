@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";  
+import React, {  useEffect, useState } from "react";  
 import SingleProduct from "../components/singleproduct/singleproduct";
 
 export default function WishlistPage() {

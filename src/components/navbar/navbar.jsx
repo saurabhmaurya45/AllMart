@@ -7,8 +7,8 @@ import { Link } from "react-router-dom";
 
 
 function Navbar() {
-    const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
-    const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
+    // const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
+    // const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
 
     // const updateWishList = ()=>{
     //     const localData = JSON.parse(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem("wishListData")) : []);
@@ -84,12 +84,12 @@ function Navbar() {
 
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/cart">
-                                            <i className="fa fa-shopping-cart"></i> Cart ({cart?.length})
+                                            <i className="fa fa-shopping-cart"></i> Cart ({0})
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to={"/wishlist"}>
-                                            <i className="fa fa-heart"></i> Wishlist ({wishList?.length})
+                                            <i className="fa fa-heart"></i> Wishlist ({0})
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">

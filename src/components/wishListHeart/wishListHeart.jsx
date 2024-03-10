@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-
+import { Link } from "react-router-dom";
 
 export default function WishListHeart(props) {
     const { singleProductData } = props;
@@ -53,12 +53,12 @@ export default function WishListHeart(props) {
 
     return (
         <div>
-            <a
+            <Link to = "#"
                 className={"product-like-icon " + (isExist ? "text-danger" : "")}
                 data-tip={(isExist ? "Remove from" : "Add to") + " Wishlist"}
                 onClick={() => handleWishList(singleProductData)}>
                 <i className={(isExist ? "fa-solid" : "fa-regular") + " fa-heart"}></i>
-            </a>
+            </Link>
         </div>
     );
 }

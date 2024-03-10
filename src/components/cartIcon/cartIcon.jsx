@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function CartIcon(props) {
     const singleProductData = props.singleProductData;
-    const [cart, setCart] = useState([]);
+    
 
     const addDataToLocalStorage = (data) => {
         // Retrieve existing data from local storage
@@ -23,8 +23,7 @@ export default function CartIcon(props) {
         // Save the updated data back to local storage
         localStorage.setItem('cartData', JSON.stringify(updatedData));
 
-        // Update state with the new data
-        setCart(updatedData);
+        
     };
 
     const cartHandler = (data) => {

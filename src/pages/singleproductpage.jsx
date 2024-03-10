@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useEffect, useContext } from 'react';
-import { json, redirect, useParams } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import {  redirect, useParams } from 'react-router-dom';
 import SingleProductImages from '../components/singleProductImages/singleProductImges';
 import SingleProductDescription from '../components/singleProductDescription/singleProductDescription';
 import SingleProduct from '../components/singleproduct/singleproduct';

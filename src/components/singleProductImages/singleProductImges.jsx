@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import "./singleProductImages.css";
-
+import { Link } from "react-router-dom";
 
 export default function SingleProductImages(props) {
     const [thumbnail, setThumbnail] = useState("");
@@ -25,7 +25,7 @@ export default function SingleProductImages(props) {
                                 <>
                                     <Link  to = "#" data-fslightbox="mygalley" className="border mx-1 rounded-2" data-type="image" onMouseOver={() => (setThumbnail(image))} key={index}>
 
-                                        <img width="60" height="60" className="rounded-2" src={image} key={index}/>
+                                        <img width="60" height="60" className="rounded-2" src={image} key={index} alt="..."/>
                                     </Link>
                                 </>
                             )

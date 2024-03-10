@@ -7,14 +7,14 @@ import CartIcon from "../cartIcon/cartIcon";
 
 
 export default function SingleProduct(props) {
-    const [singleProductData, setSingleProductData] = useState(props.SingleProduct);
+    const [singleProductData] = useState(props.SingleProduct);
 
     return (
         <div className="product-grid">
             <div className="product-image">
                 <Link to={"/singleproduct/" + singleProductData?.id} className="image">
-                    <img className="pic-1" src={(singleProductData.images[1] ? singleProductData.images[1] : singleProductData.images[0])} />
-                    <img className="pic-2" src={singleProductData.images[2] ? singleProductData.images[2] : singleProductData.images[0]} />
+                    <img className="pic-1" src={(singleProductData.images[1] ? singleProductData.images[1] : singleProductData.images[0])} alt="..."/>
+                    <img className="pic-2" src={singleProductData.images[2] ? singleProductData.images[2] : singleProductData.images[0]} alt="..." />
                 </Link>
                 {
                     props.setUpdateWishList ? <WishListHeart singleProductData={singleProductData?singleProductData: "No data"} key={singleProductData?.id} setUpdateWishList = {props.setUpdateWishList}/>

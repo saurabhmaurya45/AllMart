@@ -9,14 +9,11 @@ import Navbar from './components/navbar/navbar';
 import Footer from './components/footer/footer';
 import AllProductData from "./context/allProducts";
 import AllCategories from "./context/allCategories";
-import WishList from './context/wishList';
-import CartData from './context/cartContext';
+
 
 export default function App() {
   const [productData, setProductData] = useState({});
   const [allCategories, setAllCategories] = useState([]);
-  const [wishList, setWishList] = useState([]);
-  const [cartData, setCartData] = useState([]);
 
   const fetchData1 = async () => {
     const response = await fetch("https://dummyjson.com/products?limit=40");
@@ -41,8 +38,7 @@ export default function App() {
 
     <AllProductData.Provider value={productData}>
       <AllCategories.Provider value={allCategories}>
-        <WishList.Provider value={wishList}>
-          <CartData.Provider value={cartData}>
+        
             
               <div className="App">
                 <Navbar />
@@ -50,8 +46,7 @@ export default function App() {
                 <Footer />
               </div>
             
-          </CartData.Provider>
-        </WishList.Provider>
+          
       </AllCategories.Provider>
     </AllProductData.Provider>
   );

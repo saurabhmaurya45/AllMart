@@ -48,9 +48,9 @@ export default function CategoryWiseProduct() {
                                         <div className="carousel-inner">
                                             {
                                                 chunkedProducts[category].map((productChunk, index) => {
-                                                    {/* console.log(productChunk, index) */ }
+                                                    
                                                     return (
-                                                        <div className={index == 0 ? "carousel-item active" : "carousel-item"} key={"productChunk" + index}>
+                                                        <div className={index === 0 ? "carousel-item active" : "carousel-item"} key={"productChunk" + index}>
                                                             <div className="row">
 
                                                                 {
