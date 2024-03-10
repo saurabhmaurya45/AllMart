@@ -42,11 +42,13 @@ export default function WishListHeart(props) {
         // Retrieve data from local storage when component mounts
         const existingData = JSON.parse(localStorage.getItem('wishListData')) || [];
         setWishListLocalStorageData(existingData);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wishList]);
 
     //updating isExist state when local storage changes
     useEffect(() => {
         setIsExist((wishListLocalStorageData.find(item => item.id === singleProductData.id)) ? true : false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wishListLocalStorageData]);
 
 

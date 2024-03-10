@@ -8,7 +8,7 @@ export default function SingleProductImages(props) {
 
     useEffect(() => {
         setThumbnail(props?.thumbnail);
-        // console.log(thumbnail);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
     return (

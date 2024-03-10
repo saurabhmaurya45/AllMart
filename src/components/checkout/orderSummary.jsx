@@ -1,10 +1,10 @@
-import React, {useState,useEffect} from "react";
+import React, {useState,useEffect,useMemo} from "react";
 import "./checkout.css";
 import {Link} from "react-router-dom";
 
 
 export default function OrderSummary(props) {
-    const products = localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [];
+    const products = useMemo(() => localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [], []);
     const [price, setPrice] = useState(0);
     const [toalPrice, setTotalPrice] = useState(0);
     const [tax, setTax] = useState(0);
@@ -28,6 +28,7 @@ export default function OrderSummary(props) {
             setPrice(totalPriceWithoutTax);
             setTotalPrice(totalPrice);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [products]);
 
     return (

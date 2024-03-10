@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import {  redirect, useParams } from 'react-router-dom';
 import SingleProductImages from '../components/singleProductImages/singleProductImges';
 import SingleProductDescription from '../components/singleProductDescription/singleProductDescription';
@@ -11,7 +11,7 @@ function SingleProductPage() {
     const [product, setProduct] = useState(null);
     const [similarProduct, setSimilarProduct] = useState(null);
 
-    const fetchData = async () => {
+    const fetchData = useCallback(async () => {
         try {
             const response = await fetch(`https://dummyjson.com/products/${id}`);
             if (!response.ok) {
@@ -24,7 +24,7 @@ function SingleProductPage() {
         catch (error) {
             redirect('/error');
         }
-    };
+    }, [id]);
     const fetchSimilarProduct = async (category) => {
         try {
             const response = await fetch("https://dummyjson.com/products/category/" + category);
@@ -41,7 +41,7 @@ function SingleProductPage() {
     };
     useEffect(() => {
         fetchData();
-    }, [id]);
+    }, [fetchData]);
 
     return (
         <>
@@ -70,6 +70,7 @@ function SingleProductPage() {
                                         </div>
                                     ) 
                                 }
+                                return null;
                             })
                         }
                     </div>

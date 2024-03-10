@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import SingleProduct from '../components/singleproduct/singleproduct';
 import { useSearchParams } from 'react-router-dom';
 import Filter from '../components/filter/filter';
@@ -6,6 +6,7 @@ import Filter from '../components/filter/filter';
 
 
 export default function AllProductPage() {
+    
     // const history = useNavigate();
     const [productData, setProductData] = useState([]);
     const [localData, setLocalData] = useState(productData);
@@ -25,7 +26,7 @@ export default function AllProductPage() {
         setLocalData(data.products);
         // history('/shop', { replace: true }) 
     }
-    const fetchDataBasedOnCategory = ()=>{
+    const fetchDataBasedOnCategory = useCallback(()=>{
         const  filteredData = productData.filter((item)=>{
             return  selectedCategories.includes(item.category) && item 
         })
@@ -33,19 +34,18 @@ export default function AllProductPage() {
         if(selectedCategories.length === 0){
             setLocalData(productData);
         }
-    }
+    },[selectedCategories,productData])
     
     useEffect(() => {
         fetchAllProductData();
         if (search !== null) {
             fetchDataBasedOnSearch();
         }
-        
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     useEffect(()=>{
         fetchDataBasedOnCategory();
-    },[selectedCategories])
+    },[fetchDataBasedOnCategory])
 
     
 
