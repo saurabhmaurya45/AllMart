@@ -140,6 +140,9 @@
     text-decoration: line-through;
     margin: 0 5px 0 0;
 }
+.custom-cart-style{
+    max-height: 375px;
+}
 @media screen and (max-width: 990px){
     .product-grid{ margin: 0 0 30px; }
 }

@@ -1,11 +1,18 @@
-import React, { useContext } from 'react';
-import AllProductData from '../../context/allProducts';
+import React, { useEffect, useState } from 'react';
 import './categorywiseproduct.css';
 import SingleProduct from '../singleproduct/singleproduct';
 
 export default function CategoryWiseProduct() {
-    const productData = useContext(AllProductData);
-    // console.log(productData.products)
+    const [productData, setProductData] = useState([])
+
+
+    // Fetch products from API
+    const fetchData = async () => {
+        const response = await fetch("https://dummyjson.com/products?limit=40");
+        const data = await response.json();
+        // console.log(data.products[0].id)
+        setProductData(data);
+      }
     // Group products by category
     const groupedProducts = {};
 
@@ -27,7 +34,10 @@ export default function CategoryWiseProduct() {
             chunkedProducts[category].push(productsInCategory.slice(i, i + 4));
         }
     });
-    // console.log(chunkedProducts)
+   
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>

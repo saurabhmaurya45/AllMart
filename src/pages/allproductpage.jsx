@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import SingleProduct from '../components/singleproduct/singleproduct';
 import { useSearchParams } from 'react-router-dom';
 import Filter from '../components/filter/filter';
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 
 export default function AllProductPage() {
-    const history = useNavigate();
+    // const history = useNavigate();
     const [productData, setProductData] = useState([]);
     const [localData, setLocalData] = useState(productData);
     const [queryParameters] = useSearchParams()
@@ -23,7 +23,7 @@ export default function AllProductPage() {
         const response = await fetch("https://dummyjson.com/products/search?q=" + search);
         const data = await response.json();
         setLocalData(data.products);
-        history('/shop', { replace: true }) 
+        // history('/shop', { replace: true }) 
     }
     const fetchDataBasedOnCategory = ()=>{
         const  filteredData = productData.filter((item)=>{
