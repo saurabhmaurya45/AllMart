@@ -1,6 +1,6 @@
 import  React from 'react'; 
 import './footer.css';
-
+import {Link } from 'react-router-dom';
 export default function Footer() {
 
     return (
@@ -19,20 +19,20 @@ export default function Footer() {
                     <div className="col-md-3">
                         <h4 className="footer-heading">Quick Links</h4>
                         <div className="footer-underline"></div>
-                        <div className="mb-2"><a href="" className="text-white">Home</a></div>
-                        <div className="mb-2"><a href="" className="text-white">About Us</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Contact Us</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Blogs</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Sitemaps</a></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Home</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">About Us</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Contact Us</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Blogs</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Sitemaps</Link></div>
                     </div>
                     <div className="col-md-3">
                         <h4 className="footer-heading">Shop Now</h4>
                         <div className="footer-underline"></div>
-                        <div className="mb-2"><a href="" className="text-white">Collections</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Trending Products</a></div>
-                        <div className="mb-2"><a href="" className="text-white">New Arrivals Products</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Featured Products</a></div>
-                        <div className="mb-2"><a href="" className="text-white">Cart</a></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Collections</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Trending Products</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">New Arrivals Products</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Featured Products</Link></div>
+                        <div className="mb-2"><Link to = "#" className="text-white">Cart</Link></div>
                     </div>
                     <div className="col-md-3">
                         <h4 className="footer-heading">Reach Us</h4>
@@ -43,14 +43,14 @@ export default function Footer() {
                             </p>
                         </div>
                         <div className="mb-2">
-                            <a href="" className="text-white">
+                            <Link to = "#" className="text-white">
                                 <i className="fa fa-phone"></i> +91 888-XXX-XXXX
-                            </a>
+                            </Link>
                         </div>
                         <div className="mb-2">
-                            <a href="" className="text-white">
+                            <Link to = "#" className="text-white">
                                 <i className="fa fa-envelope"></i> allmart@gmail.com
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -65,10 +65,10 @@ export default function Footer() {
                     <div className="col-md-4">
                         <div className="social-media">
                             Get Connected:
-                            <a href=""><i className="fa-brands fa-facebook"></i></a>
-                            <a href=""><i className="fa-brands fa-x-twitter"></i></a>
-                            <a href=""><i className="fa-brands fa-instagram"></i></a>
-                            <a href=""><i className="fa-brands fa-youtube"></i></a>
+                            <Link to = "#"><i className="fa-brands fa-facebook"></i></Link>
+                            <Link to = "#"><i className="fa-brands fa-x-twitter"></i></Link>
+                            <Link to = "#"><i className="fa-brands fa-instagram"></i></Link>
+                            <Link to = "#"><i className="fa-brands fa-youtube"></i></Link>
                         </div>
                     </div>
                 </div>

@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 // import ReactDOM from "react-dom/client";
 import { Outlet } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import store from './Redux/store';
+
 
 
 import './App.css';
@@ -44,13 +43,13 @@ export default function App() {
       <AllCategories.Provider value={allCategories}>
         <WishList.Provider value={wishList}>
           <CartData.Provider value={cartData}>
-            <Provider store={store}>
+            
               <div className="App">
                 <Navbar />
                 <Outlet />
                 <Footer />
               </div>
-            </Provider>
+            
           </CartData.Provider>
         </WishList.Provider>
       </AllCategories.Provider>

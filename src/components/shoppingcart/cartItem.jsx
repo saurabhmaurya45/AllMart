@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
+
 import Quantity from '../quantity/quantity';
 
 
@@ -44,7 +44,7 @@ export default function CartItem({ product, setCart, setWishList, setQuantity}) 
             <div className="row">
                 <div className="col-lg-3 col-md-12 mb-4 mb-lg-0">
                     <div className="bg-image hover-overlay hover-zoom ripple rounded" data-mdb-ripple-color="light">
-                        <img src={product?.thumbnail} className="w-100" />
+                        <img src={product?.thumbnail} className="w-100" alt="img" />
                         <a href="#!">
                             <div className="mask" style={{ backgroundColor: "rgba(251, 251, 251, 0.2)" }}></div>
                         </a>

@@ -1,4 +1,4 @@
-import React, {  useState, useEffect } from "react";
+import React, {  useState } from "react";
 import logoPath from "../../assets/images/logo.png";
 import "../../components/navbar/navbar.css";
 
@@ -10,15 +10,15 @@ function Navbar() {
     const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
     const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
 
-    const updateWishList = ()=>{
-        const localData = JSON.parse(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem("wishListData")) : []);
-        setWishList(localData);
-    }
+    // const updateWishList = ()=>{
+    //     const localData = JSON.parse(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem("wishListData")) : []);
+    //     setWishList(localData);
+    // }
 
-    const updateCart = ()=>{
-        const localData = JSON.parse(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem("cartData")) : []);
-        setCart(localData);
-    }
+    // const updateCart = ()=>{
+    //     const localData = JSON.parse(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem("cartData")) : []);
+    //     setCart(localData);
+    // }
 
     
 
@@ -93,9 +93,9 @@ function Navbar() {
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
-                                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                             <i className="fa fa-user"></i> Username
-                                        </a>
+                                        </Link>
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                                             <li><Link className="dropdown-item" to="/"><i className="fa fa-user"></i> Profile</Link></li>
                                             <li><Link className="dropdown-item" to="/"><i className="fa fa-list"></i> My Orders</Link></li>
