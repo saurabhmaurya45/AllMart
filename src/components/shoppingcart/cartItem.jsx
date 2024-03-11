@@ -1,10 +1,11 @@
-import React from 'react';
-
+import React,{useContext} from 'react';
+import { cartLength, wishListLength } from '../../contextApi/navbarValues';
 import Quantity from '../quantity/quantity';
 
 
 export default function CartItem({ product, setCart, setWishList, setQuantity}) {
-
+    const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
+    const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
     const wishListHandler = (data) => {
         // Retrieve existing data from local storage
         const existingData = JSON.parse(localStorage.getItem('wishListData')) || [];
@@ -13,15 +14,13 @@ export default function CartItem({ product, setCart, setWishList, setQuantity}) 
 
         if (!(existingData.find(item => item.id === data.id))) {
             updatedData = [...existingData, data];
-
             // Save the updated data back to local storage
             localStorage.setItem('wishListData', JSON.stringify(updatedData));
+            setWishListLengthValue(wishListLengthValue+1);
             deleteButtomHandler(data);
         }
-
         // Update state with the new data
         setWishList(updatedData);
-        
     }
 
     const deleteButtomHandler = (data) => {
@@ -32,7 +31,7 @@ export default function CartItem({ product, setCart, setWishList, setQuantity}) 
 
         // Save the updated data back to local storage
         localStorage.setItem('cartData', JSON.stringify(updatedData));
-
+        setCartLengthValue(cartLengthValue-1);
         // Update state with the new data
         setCart(updatedData);
     }

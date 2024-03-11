@@ -1,8 +1,9 @@
-import React from "react";
+import React,{useContext} from "react";
 import { Link } from "react-router-dom";
-
+import { cartLength } from "../../contextApi/navbarValues";
 
 export default function CartIcon(props) {
+    const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
     const singleProductData = props.singleProductData;
     
 
@@ -18,6 +19,7 @@ export default function CartIcon(props) {
             return;
         } else {
             updatedData = [...existingData, {...data,"quantity":1}];
+            setCartLengthValue(cartLengthValue+1);
         }
 
         // Save the updated data back to local storage

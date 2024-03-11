@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
+import { wishListLength } from "../../contextApi/navbarValues";
 export default function WishListHeart(props) {
+    const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
     const { singleProductData } = props;
     const [wishList, setWishList] = useState([]);
     const [wishListLocalStorageData, setWishListLocalStorageData] = useState(() => {
@@ -20,8 +21,10 @@ export default function WishListHeart(props) {
         // Modify the existing data by adding newData
         if (existingData.find(item => item.id === data.id)) {
             updatedData = [...existingData.filter(item => item.id !== data.id)];
+            setWishListLengthValue(wishListLengthValue-1);
         } else {
             updatedData = [...existingData, data];
+            setWishListLengthValue(wishListLengthValue+1);
         }
 
         // Save the updated data back to local storage
@@ -51,7 +54,7 @@ export default function WishListHeart(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wishListLocalStorageData]);
 
-
+    
 
     return (
         <div>

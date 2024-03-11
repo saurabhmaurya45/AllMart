@@ -1,25 +1,14 @@
-import React from "react";
+import React,{useContext} from "react";
 import logoPath from "../../assets/images/logo.png";
 import "../../components/navbar/navbar.css";
-
 import { Link } from "react-router-dom";
+import { wishListLength, cartLength } from "../../contextApi/navbarValues";
 
 
 
 function Navbar() {
-    // const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
-    // const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
-
-    // const updateWishList = ()=>{
-    //     const localData = JSON.parse(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem("wishListData")) : []);
-    //     setWishList(localData);
-    // }
-
-    // const updateCart = ()=>{
-    //     const localData = JSON.parse(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem("cartData")) : []);
-    //     setCart(localData);
-    // }
-
+    const wishListLengthValues = useContext(wishListLength);
+    const cartLengthValues = useContext(cartLength);
     
 
     const navItems = [
@@ -84,12 +73,12 @@ function Navbar() {
 
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/cart">
-                                            <i className="fa fa-shopping-cart"></i> Cart ({0})
+                                            <i className="fa fa-shopping-cart"></i> Cart ({cartLengthValues[0]})
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to={"/wishlist"}>
-                                            <i className="fa fa-heart"></i> Wishlist ({0})
+                                            <i className="fa fa-heart"></i> Wishlist ({wishListLengthValues[0]})
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">

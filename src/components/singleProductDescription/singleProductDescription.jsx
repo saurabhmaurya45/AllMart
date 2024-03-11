@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import "./singleProductDescription.css";
-
+import { wishListLength, cartLength } from "../../contextApi/navbarValues";
 export default function SingleProductDescription(props) {
+    const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
+    const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
     const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
     const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
 
@@ -10,10 +12,12 @@ export default function SingleProductDescription(props) {
     const addToCartButtonHandler = (product) => {
         setCart([...cart, {...product, "quantity": 1}]);
         localStorage.setItem('cartData', JSON.stringify([...cart, product]));
+        setCartLengthValue(cartLengthValue+1);
     }
     const addToWishListButtonHandler = (product) => {
         setWishList([...wishList, product]);
         localStorage.setItem('wishListData', JSON.stringify([...wishList, product]));
+        setWishListLengthValue(wishListLengthValue+1);
     }
 
 
