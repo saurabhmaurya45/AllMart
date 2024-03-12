@@ -73,12 +73,12 @@ function Navbar() {
 
                                     <li className="nav-item">
                                         <Link className="nav-link" to="/cart">
-                                            <i className="fa fa-shopping-cart"></i> Cart ({cartLengthValues[0]})
+                                            <i className="fa fa-shopping-cart"></i> Cart ({cartLengthValues?cartLengthValues[0]:0})
                                         </Link>
                                     </li>
                                     <li className="nav-item">
                                         <Link className="nav-link" to={"/wishlist"}>
-                                            <i className="fa fa-heart"></i> Wishlist ({wishListLengthValues[0]})
+                                            <i className="fa fa-heart"></i> Wishlist ({wishListLengthValues?wishListLengthValues[0]:0})
                                         </Link>
                                     </li>
                                     <li className="nav-item dropdown">
