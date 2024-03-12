@@ -30,6 +30,10 @@ const appRoutes = createBrowserRouter([
         element : <AllProductPage/>
       },
       {
+        path : "/shop/:search",
+        element : <AllProductPage/>
+      },
+      {
         path : "/cart",
         element : <ShoppingCartPage />
       },
