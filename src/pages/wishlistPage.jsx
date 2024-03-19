@@ -1,33 +1,41 @@
-import React, {  useEffect, useState } from "react";  
+import React, { useEffect, useState } from "react";
+import Skeleton from 'react-loading-skeleton';
 import SingleProduct from "../components/singleproduct/singleproduct";
 
 export default function WishlistPage() {
-    const [wishList,setWishList] = useState(localStorage.getItem("wishListData") ? JSON.parse(localStorage.getItem("wishListData")) : []);
+    const [wishList, setWishList] = useState([]);
     const [updateWishList, setUpdateWishList] = useState(0);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setWishList(localStorage.getItem("wishListData") ? JSON.parse(localStorage.getItem("wishListData")) : []);
+        const savedWishList = localStorage.getItem("wishListData") ? JSON.parse(localStorage.getItem("wishListData")) : [];
+        setWishList(savedWishList);
+        setLoading(false);
     }, [updateWishList]);
 
     return (
         <>
             <h1 className="text-center">WishList</h1>
-            <div className="container-fluid my-3 ">
+            <div className="container-fluid my-3">
                 <div className="d-flex">
-                    <div className="col-md-12  d-flex justify-items-center flex-wrap  gap-4">
-                            {
-                                wishList?.map((product) => {
-                                    return (
-                                        <div key={product.id} className=" p-2 border" >
-                                            <SingleProduct SingleProduct={product}  setUpdateWishList={setUpdateWishList}/>
-                                        </div>
-                                    )
-                                })
-                            }
-                       
+                    <div className="col-md-12 d-flex justify-items-center flex-wrap gap-4">
+                        {loading ? (
+                            // Display skeleton loading if data is still loading
+                            Array.from({ length: 6 }).map((_, index) => (
+                                <div key={index} className="p-2 border">
+                                    <Skeleton width={250} height={250} />
+                                </div>
+                            ))
+                        ) : (
+                            wishList.map((product) => (
+                                <div key={product.id} className="p-2 border">
+                                    <SingleProduct SingleProduct={product} setUpdateWishList={setUpdateWishList} />
+                                </div>
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
         </>
-    )
-}   
+    );
+}

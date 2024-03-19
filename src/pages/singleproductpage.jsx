@@ -1,15 +1,18 @@
 import React from 'react';
 import { useState, useEffect, useCallback } from 'react';
-import {  redirect, useParams } from 'react-router-dom';
+import { redirect, useParams } from 'react-router-dom';
 import SingleProductImages from '../components/singleProductImages/singleProductImges';
 import SingleProductDescription from '../components/singleProductDescription/singleProductDescription';
 import SingleProduct from '../components/singleproduct/singleproduct';
+import Skeleton from 'react-loading-skeleton';
 
 
 function SingleProductPage() {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
     const [similarProduct, setSimilarProduct] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
 
     const fetchData = useCallback(async () => {
         try {
@@ -20,40 +23,59 @@ function SingleProductPage() {
             const jsonData = await response.json();
             setProduct(jsonData);
             fetchSimilarProduct(jsonData?.category);
-        }
-        catch (error) {
-            redirect('/error');
+            setLoading(false);
+        } catch (error) {
+            setError(true);
+            setLoading(false);
         }
     }, [id]);
+
     const fetchSimilarProduct = async (category) => {
         try {
-            const response = await fetch("https://dummyjson.com/products/category/" + category);
+            const response = await fetch(`https://dummyjson.com/products/category/${category}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
             const jsonData = await response.json();
             setSimilarProduct(jsonData?.products);
+        } catch (error) {
+            setError(true);
         }
-        catch (error) {
-            redirect('/error');
-        }
-
     };
+
     useEffect(() => {
         fetchData();
     }, [fetchData]);
 
+    if (error) {
+        redirect('/error');
+    }
+
     return (
         <>
-            <section className="py-5" >
+            <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
-                        {product && (
-                            <SingleProductImages images={product.images} thumbnail={product.thumbnail} />
+                        {loading ? (
+                            <>
+                                <div className="col-lg-6">
+                                    <Skeleton height={400} />
+                                </div>
+                                <div className="d-flex justify-center gap-3 ">
+                                    {
+                                        Array.from({ length: 4 }).map((_, index) => (
+                                            <div key={index}>
+                                                <Skeleton height={60} width={60} />
+                                            </div>
+                                        ))
+                                    }
+                                </div>
+                            </>
+                        ) : (
+                            <SingleProductImages images={product?.images} thumbnail={product?.thumbnail} />
                         )}
                         <SingleProductDescription product={product} />
                     </div>
-
                 </div>
             </section>
 
@@ -61,22 +83,24 @@ function SingleProductPage() {
                 <div className="container-fluid">
                     <h2 className="mb-5 text-left">Related Products</h2>
                     <div className="d-flex flex-wrap justify-evenly gap-3">
-                        {
-                            similarProduct?.map((item, index) => {
-                                if (product.id !== item.id) {
-                                    return (
-                                        <div className=" border" key={index} >
-                                            <SingleProduct SingleProduct={item} />
-                                        </div>
-                                    ) 
-                                }
-                                return null;
-                            })
-                        }
+                        {loading ? (
+                            Array.from({ length: 4 }).map((_, index) => (
+                                <div className="border" key={index}>
+                                    <Skeleton height={250} width={250}/>
+                                </div>
+                            ))
+                        ) : (
+                            similarProduct?.map((item, index) =>
+                                item.id !== product.id ? (
+                                    <div className="border" key={index}>
+                                        <SingleProduct SingleProduct={item} />
+                                    </div>
+                                ) : null
+                            )
+                        )}
                     </div>
                 </div>
             </section>
-
         </>
     );
 }

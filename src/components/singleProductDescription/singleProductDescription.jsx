@@ -2,6 +2,9 @@ import React, { useState,useContext } from "react";
 import { Link } from "react-router-dom";
 import "./singleProductDescription.css";
 import { wishListLength, cartLength } from "../../contextApi/navbarValues";
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
+
 export default function SingleProductDescription(props) {
     const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
     const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
@@ -27,7 +30,7 @@ export default function SingleProductDescription(props) {
                 <div className="ps-lg-3">
                     <div className="">
                         <h4 className="title text-dark ">
-                            {props.product && props.product.title}
+                            {props.product && props.product.title || <Skeleton />}
                         </h4>
                     </div>
                     <div className="d-flex flex-row my-3">
@@ -38,16 +41,16 @@ export default function SingleProductDescription(props) {
                             <i className="fa fa-star"></i>
                             <i className="fas fa-star-half-alt"></i>
                             <span className="ms-1">
-                                {props.product && parseFloat(props.product.rating)}
+                                {props.product && parseFloat(props.product.rating) || <Skeleton />}
                             </span>
 
                         </div>
-                        <span className="text-muted"><i className="fas fa-shopping-basket fa-sm mx-1"></i>{props.product && props.product.stock} orders</span>
+                        <span className="text-muted"><i className="fas fa-shopping-basket fa-sm mx-1"></i>{props.product && props.product.stock || <Skeleton />} orders</span>
                         <span className="text-success ms-2">In stock</span>
                     </div>
                     <div className="mb-3 ">
-                        <span className="h6 px-2 text-decoration-line-through" style={{ color: "red" }}>Rs.{props.product && props.product.price + Math.round(props.product.price * props.product.discountPercentage / 100)}</span>
-                        <span className="h5">Rs.{props.product && props.product.price}</span>
+                        <span className="h6 px-2 text-decoration-line-through" style={{ color: "red" }}>Rs.{props.product && props.product.price + Math.round(props.product.price * props.product.discountPercentage / 100) || <Skeleton />}</span>
+                        <span className="h5">Rs.{props.product && props.product.price || <Skeleton />}</span>
                         {/* <span className="text-muted">/per box</span> */}
                     </div>
                     <p>
@@ -55,10 +58,10 @@ export default function SingleProductDescription(props) {
                     </p>
                     <div className="row">
                         <dt className="col-3">Category:</dt>
-                        <dd className="col-9">{props.product && props.product.category}</dd>
+                        <dd className="col-9">{props.product && props.product.category || <Skeleton />}</dd>
 
                         <dt className="col-3">Brand</dt>
-                        <dd className="col-9">{props.product && props.product.brand}</dd>
+                        <dd className="col-9">{props.product && props.product.brand || <Skeleton />}</dd>
                     </div>
                     <hr />
                     <form>

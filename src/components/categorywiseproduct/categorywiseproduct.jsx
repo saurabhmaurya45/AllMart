@@ -1,28 +1,27 @@
 import React, { useEffect, useState } from 'react';
 import './categorywiseproduct.css';
 import SingleProduct from '../singleproduct/singleproduct';
+import Skeleton from 'react-loading-skeleton';
 
 export default function CategoryWiseProduct() {
-    const [productData, setProductData] = useState([])
-
+    const [productData, setProductData] = useState(null);
 
     // Fetch products from API
     const fetchData = async () => {
         const response = await fetch("https://dummyjson.com/products?limit=40");
         const data = await response.json();
-        // console.log(data.products[0].id)
         setProductData(data);
-      }
+    }
+
     // Group products by category
     const groupedProducts = {};
 
-    productData.products && productData.products.forEach((product) => {
+    productData?.products && productData.products.forEach((product) => {
         if (!groupedProducts[product.category]) {
             groupedProducts[product.category] = [];
         }
         groupedProducts[product.category].push(product);
-    })
-    // console.log(groupedProducts)
+    });
 
     // Split products into chunks of four
     const chunkedProducts = {};
@@ -34,7 +33,7 @@ export default function CategoryWiseProduct() {
             chunkedProducts[category].push(productsInCategory.slice(i, i + 4));
         }
     });
-   
+
     useEffect(() => {
         fetchData();
     }, []);
@@ -42,46 +41,25 @@ export default function CategoryWiseProduct() {
     return (
         <>
             <div>
-                {chunkedProducts && Object.keys(chunkedProducts).map((category, index) => {
-                    return (
+                {productData ? (
+                    Object.keys(chunkedProducts).map((category, index) => (
                         <div className="container" id="category-wise-product-corousel" key={"category" + index}>
                             <div className="row">
                                 <div className="col-md-12">
                                     <h2>Trending <b>{category}</b></h2>
                                     <div id={category} className="carousel slide" data-ride="carousel" data-interval="0">
-
-                                        {/* <ol className="carousel-indicators">
-                                            <li data-target={"#"+category} data-slide-to="0" className="active"></li>
-                                            <li data-target={"#"+category} data-slide-to="1"></li>
-                                        </ol> */}
-
                                         <div className="carousel-inner">
-                                            {
-                                                chunkedProducts[category].map((productChunk, index) => {
-                                                    
-                                                    return (
-                                                        <div className={index === 0 ? "carousel-item active" : "carousel-item"} key={"productChunk" + index}>
-                                                            <div className="row">
-
-                                                                {
-                                                                    productChunk.map((product, index) => {
-                                                                        return (
-                                                                            <>
-                                                                            <div className="col-md-3 col-sm-6" key={"product" + index}>
-                                                                            <SingleProduct SingleProduct={product} />
-                                                                            </div>
-                                                                            </>
-                                                                        )
-                                                                    })
-                                                                }
-
-
+                                            {chunkedProducts[category].map((productChunk, chunkIndex) => (
+                                                <div className={chunkIndex === 0 ? "carousel-item active" : "carousel-item"} key={"productChunk" + chunkIndex}>
+                                                    <div className="row">
+                                                        {productChunk.map((product, productIndex) => (
+                                                            <div className="col-md-3 col-sm-6" key={"product" + productIndex}>
+                                                                <SingleProduct SingleProduct={product} />
                                                             </div>
-                                                        </div>
-                                                    )
-                                                })
-                                            }
-
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            ))}
                                         </div>
                                         <a className="carousel-control-prev" href={"#" + category} data-slide="prev">
                                             <i className="fa fa-angle-left"></i>
@@ -93,10 +71,25 @@ export default function CategoryWiseProduct() {
                                 </div>
                             </div>
                         </div>
-                    )
-                })}
-            </div>
+                    ))
+                ) : (
+                    // Display skeleton loading while fetching data
+                    <div className="container">
+                        <div className="d-flex justify-evenly gap-4 m-2">
+                            {
+                                Array.from({ length: 4 }).map((_, index) => (
+                                    <>
+                                        <div key={index}>
+                                            <Skeleton height={300} width={300} />
+                                        </div>
+                                    </>
+                                ))
+                            }
 
+                        </div>
+                    </div>
+                )}
+            </div>
         </>
     )
 }

@@ -14,7 +14,7 @@ export default function SingleProduct(props) {
             <div className="product-image">
                 <Link to={"/singleproduct/" + singleProductData?.id} className="image">
                     <img className="pic-1" src={(singleProductData.images[1] ? singleProductData.images[1] : singleProductData.images[0])} alt="..."/>
-                    <img className="pic-2" src={singleProductData.images[2] ? singleProductData.images[2] : singleProductData.images[0]} alt="..." />
+                    <img className="pic-2" src={singleProductData.images[2] ? singleProductData.images[2] : singleProductData.images[0] } alt="..." />
                 </Link>
                 {
                     props.setUpdateWishList ? <WishListHeart singleProductData={singleProductData?singleProductData: "No data"} key={singleProductData?.id} setUpdateWishList = {props.setUpdateWishList}/>
@@ -33,7 +33,7 @@ export default function SingleProduct(props) {
             </div>
             <div className="product-content">
                 <h3 className="title"><Link to={"/singleproduct/" + singleProductData?.id}>{singleProductData.title && singleProductData.title}</Link></h3>
-                <div className="price">Rs. {singleProductData.price && singleProductData.price}</div>
+                <div className="price">Rs. {singleProductData.price && singleProductData.price }</div>
             </div>
         </div>
 

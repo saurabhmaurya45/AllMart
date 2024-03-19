@@ -3,6 +3,7 @@ import { useState } from "react";
 import "./singleProductImages.css";
 import { Link } from "react-router-dom";
 
+
 export default function SingleProductImages(props) {
     const [thumbnail, setThumbnail] = useState("");
 
@@ -19,7 +20,7 @@ export default function SingleProductImages(props) {
                 </div>
                 <div className="d-flex justify-content-center mb-3">
                     {
-                        props.images.map((image, index) => {
+                          (props.images.map((image, index) => {
                             
                             return (
                                 <>
@@ -29,7 +30,7 @@ export default function SingleProductImages(props) {
                                     </Link>
                                 </>
                             )
-                        })
+                        }))
                     }
                 </div>
             </aside>

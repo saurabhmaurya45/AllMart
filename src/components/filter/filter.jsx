@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Skeleton from 'react-loading-skeleton';
 import "../../components/filter/filter.css";
 
 function titleCase(str) {
@@ -8,14 +9,18 @@ function titleCase(str) {
     }
     return str.join(' ');
 }
+
 export default function Filter({ setSelectedCategories, selectedCategories}) {
     const [allCategory, setAllCategory] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     const fetchAllCategory = async () => {
         const response = await fetch("https://dummyjson.com/products/categories");
         const data = await response.json();
         setAllCategory(data);
+        setLoading(false);
     }
+
     const handleCategoryChange = (categoryName) => {
         if (selectedCategories.includes(categoryName)) {
             setSelectedCategories(selectedCategories.filter(cat => cat !== categoryName));
@@ -23,38 +28,44 @@ export default function Filter({ setSelectedCategories, selectedCategories}) {
             setSelectedCategories([...selectedCategories, categoryName]);
         }
     };
+
     useEffect(() => {
         fetchAllCategory();
     }, [])
     
     return (
-        <>
-            <div className="filter " >
-                <aside className="p-3 mx-2">
-                    <h3 className="text-center">Filter </h3>
-                    <div className="card mt-3">
-                        <article className="card-group-item">
-                            <header className="card-header">
-                                <h6 className="title">Category </h6>
-                            </header>
-                            <div className="filter-content">
-                                <div className="card-body">
+        <div className="filter">
+            <aside className="p-3 mx-2">
+                <h3 className="text-center">Filter </h3>
+                <div className="card mt-3">
+                    <article className="card-group-item">
+                        <header className="card-header">
+                            <h6 className="title">Category </h6>
+                        </header>
+                        <div className="filter-content">
+                            <div className="card-body">
                                 <label className="form-check">
-                                        <input
-                                            className="form-check-input"
-                                            type="checkbox"
-                                            value="All"
-                                            checked={selectedCategories.length === 0}
-                                            onChange={() => {
-                                                setSelectedCategories([]);
-                                            }}
-                                        />
-                                        <span className="form-check-label">All</span>
-                                    </label>
-                                    {
-                                        allCategory?.map((category) => {
-                                            return (
-                                                <label key={category.id} className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        value="All"
+                                        checked={selectedCategories.length === 0}
+                                        onChange={() => {
+                                            setSelectedCategories([]);
+                                        }}
+                                    />
+                                    <span className="form-check-label">All</span>
+                                </label>
+                                {loading ? (
+                                    // Skeleton loading for categories
+                                    Array.from({ length: 10 }).map((_, index) => (
+                                        <div key={index} className="form-check">
+                                            <Skeleton width={100} />
+                                        </div>
+                                    ))
+                                ) : (
+                                    allCategory?.map((category) => (
+                                        <label key={category.id} className="form-check">
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
@@ -64,22 +75,13 @@ export default function Filter({ setSelectedCategories, selectedCategories}) {
                                             />
                                             <span className="form-check-label">{titleCase(category)}</span>
                                         </label>
-                                            )
-                                        })
-
-                                    }
-                                </div>
+                                    ))
+                                )}
                             </div>
-                        </article>
-
-
-                    </div>
-
-
-
-
-                </aside>
-            </div>
-        </>
-    )
+                        </div>
+                    </article>
+                </div>
+            </aside>
+        </div>
+    );
 }
