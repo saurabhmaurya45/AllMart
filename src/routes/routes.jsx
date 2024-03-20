@@ -11,6 +11,10 @@ import ShoppingCartPage from "../pages/shoppingcartpage";
 import WishlistPage from "../pages/wishlistPage";
 import CheckoutPage from "../pages/checkoutPage";
 import ConfirmationPage from "../pages/confirmationPage";
+import AuthenticationPage from "../pages/authenticationPage";
+import OrderHistoryPage from "../pages/orderHistoryPage";
+import OrderHistoryViewPage from "../pages/orderHistoryViewPage";
+import ProfilePage from "../pages/profilePage";
 
 const appRoutes = createBrowserRouter([
   {
@@ -20,6 +24,10 @@ const appRoutes = createBrowserRouter([
       {
         path : "/",
         element : <Home />
+      },
+      {
+        path : "/profile",
+        element : <ProfilePage />
       },
       {
         path : "/singleproduct/:id",
@@ -46,8 +54,16 @@ const appRoutes = createBrowserRouter([
         element : <CheckoutPage />
       },
       {
-        path : "/confirmation",
+        path : "/confirmation/:orderId",
         element : <ConfirmationPage />
+      },
+      {
+        path : "/history",
+        element : <OrderHistoryPage />
+      },
+      {
+        path : "/orderhistory/:orderId",
+        element : <OrderHistoryViewPage />
       },
       {
         path : "/testing",
@@ -55,6 +71,10 @@ const appRoutes = createBrowserRouter([
       }
     ],
     errorElement : <ErrorPage />
+  },
+  {
+    path : "/login",
+    element : <AuthenticationPage />
   }
 ]);
 

@@ -36,3 +36,46 @@
     transform: rotate(360deg);
   }
 }
+
+/* profile page css */
+
+.profile .form-control:focus {
+  box-shadow: none;
+  border-color: #2874F0
+}
+
+.profile .profile-button {
+  background: #2874F0;
+  box-shadow: none;
+  border: none
+}
+
+.profile .profile-button:hover {
+  background: #2874F0;
+}
+
+.profile .profile-button:focus {
+  background: #2874F0;
+  box-shadow: none
+}
+
+.profile .profile-button:active {
+  background: #2874F0;
+  box-shadow: none
+}
+
+.profile .back:hover {
+  color: #2874F0;
+  cursor: pointer
+}
+
+.profile .labels {
+  font-size: 11px
+}
+
+.profile .add-experience:hover {
+  background: #2874F0;
+  color: #fff;
+  cursor: pointer;
+  border: solid 1px #2874F0;
+}

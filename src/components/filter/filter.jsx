@@ -10,9 +10,10 @@ function titleCase(str) {
     return str.join(' ');
 }
 
-export default function Filter({ setSelectedCategories, selectedCategories}) {
+export default function Filter({ setSelectedCategories, selectedCategories, setSortByPrice, sortByPrice}) {
     const [allCategory, setAllCategory] = useState([]);
     const [loading, setLoading] = useState(true);
+
 
     const fetchAllCategory = async () => {
         const response = await fetch("https://dummyjson.com/products/categories");
@@ -38,7 +39,7 @@ export default function Filter({ setSelectedCategories, selectedCategories}) {
             <aside className="p-3 mx-2">
                 <h3 className="text-center">Filter </h3>
                 <div className="card mt-3">
-                    <article className="card-group-item">
+                    <article className="card-group-item ">
                         <header className="card-header">
                             <h6 className="title">Category </h6>
                         </header>
@@ -77,6 +78,54 @@ export default function Filter({ setSelectedCategories, selectedCategories}) {
                                         </label>
                                     ))
                                 )}
+                            </div>
+                        </div>
+                    </article>
+                </div>
+                <div className="card mt-3">
+                    <article className="card-group-item ">
+                        <header className="card-header">
+                            <h6 className="title">Sort </h6>
+                        </header>
+                        <div className="filter-content">
+                            <div className="card-body">
+                                <label className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        value="reset"
+                                        checked={sortByPrice === "reset"}
+                                        onChange={() => {
+                                            setSortByPrice("reset");
+                                        }}
+                                    />
+                                    <span className="form-check-label">Reset</span>
+                                </label>
+                                <label className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        value="asc"
+                                        checked={sortByPrice === "asc"}
+                                        onChange={() => {
+                                            setSortByPrice("asc");
+                                        }}
+                                    />
+                                    <span className="form-check-label">Low to High</span>
+                                </label>
+                                <label className="form-check">
+                                    <input
+                                        className="form-check-input"
+                                        type="checkbox"
+                                        value="Reset"
+                                        checked={sortByPrice === "desc"}
+                                        onChange={() => {
+                                            setSortByPrice("desc");
+                                        }}
+                                    />
+                                    <span className="form-check-label">High to Low</span>
+                                </label>
+                                
                             </div>
                         </div>
                     </article>

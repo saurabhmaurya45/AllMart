@@ -3,10 +3,10 @@ import "./checkout.css";
 import {Link} from "react-router-dom";
 
 
-export default function OrderSummary(props) {
-    const products = useMemo(() => localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [], []);
+export default function OrderSummary({billingDetails, setBillingDetails}) {
+    const products =  localStorage.getItem("cartData") ? JSON.parse(localStorage.getItem("cartData")) : [];
     const [price, setPrice] = useState(0);
-    const [toalPrice, setTotalPrice] = useState(0);
+    const [totalPrice, setTotalPrice] = useState(0);
     const [tax, setTax] = useState(0);
     const [shipping, setShipping] = useState(0);
 
@@ -27,16 +27,29 @@ export default function OrderSummary(props) {
             setShipping(shipping );
             setPrice(totalPriceWithoutTax);
             setTotalPrice(totalPrice);
+            
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [products]);
+    }, []);
+    useEffect(() => {
+        setBillingDetails({
+            ...billingDetails,
+            OrderSummary: {
+                subTotal: price,
+                tax: tax,
+                shipping: shipping,
+                total: totalPrice
+            }
+        })
+    }, [totalPrice, tax, shipping,price]);
+
 
     return (
         <>
             <div className="card checkout-order-summary">
                 <div className="card-body">
                     <div className="p-3 bg-light mb-3">
-                        <h5 className="font-size-16 mb-0">Order Summary <span className="float-end ms-2">#MN{Math.round(Math.random() * 100000000)}</span></h5>
+                        <h5 className="font-size-16 mb-0">Order Summary <span className="float-end ms-2">{billingDetails.order_receipt}</span></h5>
                     </div>
                     <div className="table-responsive">
                         <table className="table table-centered mb-0 table-nowrap">
@@ -102,7 +115,7 @@ export default function OrderSummary(props) {
                                         <h5 className="font-size-14 m-0">Total:</h5>
                                     </td>
                                     <td>
-                                        Rs. {toalPrice}
+                                        Rs. {totalPrice}
                                     </td>
                                 </tr>
                             </tbody>

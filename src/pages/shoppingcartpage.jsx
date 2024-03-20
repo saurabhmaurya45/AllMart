@@ -16,7 +16,7 @@ const ShoppingCartPage = () => {
     useEffect(() => {
         const cart = localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : [];
         if (cart.length !== 0) {
-            console.log("reload called")
+
             let totalPrice = 0;
             let totalPriceWithoutTax = 0;
 

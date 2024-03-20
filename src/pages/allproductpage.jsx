@@ -15,6 +15,20 @@ export default function AllProductPage() {
     const [queryParameters] = useSearchParams()
     const [search, setSearch] = useState(queryParameters.get('search'));
     const [selectedCategories, setSelectedCategories] = useState([]);
+    const [sortByPrice, setSortByPrice] = useState("");
+
+    const setLowToHigh = () => {
+        const sortedProducts = productData.sort((a, b) => a.price - b.price);
+        setLocalData([...sortedProducts]);
+    };
+    const setHighToLow = () => {
+        const reverseSortedProducts = productData.sort((a, b) => b.price - a.price);
+        setLocalData([...reverseSortedProducts]);
+    };
+    const restList = () => {
+        const reset = productData.sort((a, b) => a.id - b.id);
+        setLocalData([...reset]);
+    };
 
     const fetchAllProductData = async () => {
         setLoading(true); // Set loading to true while fetching data
@@ -49,6 +63,17 @@ export default function AllProductPage() {
             // setSearch(queryParameters.get('search')? queryParameters.get('search'):null);
         }
     }
+    const fetchDataBasedOnPrice = () => {
+        if (sortByPrice === "asc") {
+            setLowToHigh();
+        } else if (sortByPrice === "desc") {
+            setHighToLow();
+        } else {
+            console.log("reset")
+            restList();
+        }
+    
+    }
 
     useEffect(() => {
         fetchAllProductData();
@@ -62,13 +87,17 @@ export default function AllProductPage() {
         fetchDataBasedOnCategory();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [selectedCategories])
-
+    useEffect(() => {
+        fetchDataBasedOnPrice();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortByPrice])
+    console.log(localData)
     return (
         <>
             <div className="container-fluid mt-4 ">
                 <div className="row">
                     <div className="col-md-3 mt-2 border ">
-                        <Filter setSelectedCategories={setSelectedCategories} selectedCategories={selectedCategories} />
+                        <Filter setSelectedCategories={setSelectedCategories} selectedCategories={selectedCategories} sortByPrice={sortByPrice} setSortByPrice={setSortByPrice} />
                     </div>
                     <div className="col-md-9 d-flex flex-wrap gap-2  " style={{ justifyContent: "space-evenly" }}>
 

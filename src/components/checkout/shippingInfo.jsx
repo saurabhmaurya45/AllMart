@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export default function ShippingInfo() {
+export default function ShippingInfo(props) {
     const [address, setAddress] = useState(JSON.parse(localStorage.getItem("address")) ? JSON.parse(localStorage.getItem("address")) : []);
     const [updatedAddress, setUpdatedAddress] = useState(JSON.parse(localStorage.getItem("address")) ? JSON.parse(localStorage.getItem("address")) : []);
     const [newName, setNewName] = useState("");
@@ -37,11 +37,15 @@ export default function ShippingInfo() {
         setEditIndex(index);
         document.getElementById("addNewAddressButton").click();
     }
+    const addressHandler = (index) => {
+        const getAddress = JSON.parse(localStorage.getItem("address")) ? JSON.parse(localStorage.getItem("address")) : [];
+        props.setBillingDetails({ ...props.billingDetails, shippingAddress: getAddress[index] });
+    }
     useEffect(() => {
         setUpdatedAddress(localStorage.getItem("address") ? JSON.parse(localStorage.getItem("address")) : []);
     }, [address]);
-    console.log(address,'address')
-    console.log(updatedAddress,"updatedAddress")
+    // console.log(address,'address')
+    // console.log(updatedAddress,"updatedAddress")
     return (
         <>
             <div>
@@ -57,7 +61,7 @@ export default function ShippingInfo() {
                                         <div className="col-lg-4 col-sm-6" key={index + 1}>
                                             <div data-bs-toggle="collapse">
                                                 <label className="card-radio-label mb-0">
-                                                    <input type="radio" name="address" id="info-address" className="card-radio-input" value={index} />
+                                                    <input type="radio" name="address" id="info-address" className="card-radio-input" value={index} onClick={(e)=>{addressHandler(e.target.value)}} />
                                                     <div className="card-radio text-truncate p-3">
                                                         <span className="fs-14 mb-4 d-block">Address {index + 1}</span>
                                                         <span className="fs-14 mb-2 d-block">{item.name}</span>

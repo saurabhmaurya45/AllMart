@@ -9,7 +9,7 @@ import { wishListLength, cartLength } from "../../contextApi/navbarValues";
 function Navbar() {
     const wishListLengthValues = useContext(wishListLength);
     const cartLengthValues = useContext(cartLength);
-    
+    const userData = JSON.parse(sessionStorage.getItem("userData"));
 
     const navItems = [
         {
@@ -45,6 +45,12 @@ function Navbar() {
         //     link: '/'
         // }
     ];
+
+    const logoutButtonHandler = () => {
+        sessionStorage.removeItem("userData");
+        window.location.reload();
+    }
+
     return (
         <>
             <div className="main-navbar shadow-sm sticky-top">
@@ -81,16 +87,20 @@ function Navbar() {
                                             <i className="fa fa-heart"></i> Wishlist ({wishListLengthValues?wishListLengthValues[0]:0})
                                         </Link>
                                     </li>
-                                    <li className="nav-item dropdown">
-                                        <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                            <i className="fa fa-user"></i> Username
-                                        </Link>
+                                    <li className={userData? "nav-item dropdown":"nav-item"}>
+                                        {
+                                            userData ? <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                <i className="fa fa-user"></i> {userData.username}
+                                            </Link> : <Link to="/login" className="nav-link " id="login" role="button"  >
+                                                Login
+                                            </Link>
+                                        }
                                         <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-user"></i> Profile</Link></li>
-                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-list"></i> My Orders</Link></li>
+                                            <li><Link className="dropdown-item" to="/profile"><i className="fa fa-user"></i> Profile</Link></li>
+                                            <li><Link className="dropdown-item" to="/history"><i className="fa fa-list"></i> Order History</Link></li>
                                             <li><Link className="dropdown-item" to="/wishlist"><i className="fa fa-heart"></i> My Wishlist</Link></li>
                                             <li><Link className="dropdown-item" to="/cart"><i className="fa fa-shopping-cart"></i> My Cart</Link></li>
-                                            <li><Link className="dropdown-item" to="/"><i className="fa fa-sign-out"></i> Logout</Link></li>
+                                            <li><Link className="dropdown-item" onClick={logoutButtonHandler}><i className="fa fa-sign-out"></i> Logout</Link></li>
                                         </ul>
                                     </li>
                                 </ul>

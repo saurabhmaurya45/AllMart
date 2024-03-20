@@ -4,7 +4,8 @@ import PaymentInfo from "./paymentInfo";
 import ShippingInfo from "./shippingInfo";
 import BillingInfo from "./billingInfo";
 
-export default function BillingDetails() {
+export default function BillingDetails(props) {
+
     return (
         <div className="card">
             <div className="card-body">
@@ -16,7 +17,7 @@ export default function BillingDetails() {
                             </div>
                         </div>
                         <div className="feed-item-list">
-                            <BillingInfo />
+                            <BillingInfo billingDetails={props.billingDetails} setBillingDetails={props.setBillingDetails}/>
                         </div>
                     </li>
                     <li className="checkout-item">
@@ -26,10 +27,10 @@ export default function BillingDetails() {
                             </div>
                         </div>
                         <div className="feed-item-list">
-                            <ShippingInfo />
+                            <ShippingInfo billingDetails={props.billingDetails} setBillingDetails={props.setBillingDetails}/>
                         </div>
                     </li>
-                    <li className="checkout-item">
+                    {/* <li className="checkout-item">
                         <div className="avatar checkout-icon p-1">
                             <div className="avatar-title rounded-circle bg-primary">
                                 <i className="bx bxs-wallet-alt text-white font-size-20"></i>
@@ -38,7 +39,7 @@ export default function BillingDetails() {
                         <div className="feed-item-list">
                             <PaymentInfo />
                         </div>
-                    </li>
+                    </li> */}
                 </ol>
             </div>
         </div>
