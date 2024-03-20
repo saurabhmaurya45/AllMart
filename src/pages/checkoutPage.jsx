@@ -1,18 +1,19 @@
-import React, { useState, useEffect,useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import BillingDetails from "../components/checkout/billingDetails";
 import OrderSummary from "../components/checkout/orderSummary";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import { cartLength } from "../contextApi/navbarValues";
+import useRazorpay from "react-razorpay";
 
 export default function CheckoutPage() {
     const navigate = useNavigate()
-    // const [Razorpay] = useRazorpay();
+    const [Razorpay] = useRazorpay();
     const getPreviousOrder = JSON.parse(localStorage.getItem("orderInfo")) || [];
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     //eslint-disable-next-line
-    const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
+    const [cartLengthValue, setCartLengthValue] = useContext(cartLength);
     // console.log(setCartLengthValue);
     const [billingDetails, setBillingDetails] = useState({
         id: "",
@@ -50,18 +51,18 @@ export default function CheckoutPage() {
         handlePayment();
     }
     const handlePayment = async () => {
-        if (billingDetails.name === "" || billingDetails.address === "" || billingDetails.postalCode === "" || billingDetails.phone === "" 
-        || billingDetails.city === "" || billingDetails.country === "" || billingDetails.shippingAddress.name === "" || billingDetails.shippingAddress.phone === "" || billingDetails.shippingAddress.address === "") {
-          return toast.error("All fields are required", {
-            position: "top-center",
-            autoClose: 1000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "colored",
-          })
+        if (billingDetails.name === "" || billingDetails.address === "" || billingDetails.postalCode === "" || billingDetails.phone === ""
+            || billingDetails.city === "" || billingDetails.country === "" || billingDetails.shippingAddress.name === "" || billingDetails.shippingAddress.phone === "" || billingDetails.shippingAddress.address === "") {
+            return toast.error("All fields are required", {
+                position: "top-center",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
         }
         var options = {
             key: "rzp_test_AiaIOGJgyjsVV0",
@@ -90,20 +91,22 @@ export default function CheckoutPage() {
                     ),
                     paymentId
                 }
-                
+
                 localStorage.setItem("orderInfo", JSON.stringify([...getPreviousOrder, orderInfo]))
                 localStorage.removeItem("cartData");
                 setCartLengthValue(0);
-                navigate("/confirmation/"+orderInfo.paymentId)
+                navigate("/confirmation/" + orderInfo.paymentId)
             },
 
             theme: {
                 color: "#3399cc"
             }
         };
-        var pay = new window.Razorpay(options);
-        pay.open();
-        
+        // var pay = new window.Razorpay(options);
+        // pay.open();
+        const rzpay = new Razorpay(options);
+        rzpay.open();
+
     }
     useEffect(() => {
         setBillingDetails({
