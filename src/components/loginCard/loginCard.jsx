@@ -5,8 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 export default function LoginCard() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [username, setUsername] = useState("kminchelle");
+    const [password, setPassword] = useState("0lelplR");
 
     const signInButtonHandler = () => {
         const response = async () => {
