@@ -64,6 +64,11 @@ export default function AllProductPage() {
         }
     }
     const fetchDataBasedOnPrice = () => {
+        if (isSearch) {
+            setIsSearch(false);
+            setSearch(null);
+            navigate("/shop");
+        }
         if (sortByPrice === "asc") {
             setLowToHigh();
         } else if (sortByPrice === "desc") {
