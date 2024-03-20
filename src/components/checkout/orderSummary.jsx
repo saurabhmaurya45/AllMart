@@ -1,4 +1,4 @@
-import React, {useState,useEffect,useMemo} from "react";
+import React, {useState,useEffect} from "react";
 import "./checkout.css";
 import {Link} from "react-router-dom";
 
@@ -41,6 +41,7 @@ export default function OrderSummary({billingDetails, setBillingDetails}) {
                 total: totalPrice
             }
         })
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [totalPrice, tax, shipping,price]);
 
 

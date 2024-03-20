@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function ShippingInfo(props) {
     const [address, setAddress] = useState(JSON.parse(localStorage.getItem("address")) ? JSON.parse(localStorage.getItem("address")) : []);
+    // eslint-disable-next-line
     const [updatedAddress, setUpdatedAddress] = useState(JSON.parse(localStorage.getItem("address")) ? JSON.parse(localStorage.getItem("address")) : []);
     const [newName, setNewName] = useState("");
     const [newMobile, setNewMobile] = useState("");

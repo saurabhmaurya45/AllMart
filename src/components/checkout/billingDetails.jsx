@@ -1,6 +1,5 @@
 import React from "react";
 import "./checkout.css";
-import PaymentInfo from "./paymentInfo";
 import ShippingInfo from "./shippingInfo";
 import BillingInfo from "./billingInfo";
 

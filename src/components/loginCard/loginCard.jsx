@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from "../../assets/images/logo.png";
 import "./loginCard.css";
 import { useNavigate } from "react-router-dom";
-
+import { Link } from "react-router-dom";
 export default function LoginCard() {
     const navigate = useNavigate();
     const [username, setUsername] = useState("");
@@ -50,10 +50,10 @@ export default function LoginCard() {
                             <div className="col-md-8 col-lg-6 col-xxl-3">
                                 <div className="card mb-0">
                                     <div className="card-body">
-                                        <a href="#" className="text-nowrap logo-img text-center  py-3 w-100">
+                                        <Link to="#" className="text-nowrap logo-img text-center  py-3 w-100">
                                             <img src={logo} width="60" height="60" alt="" />
                                             <h4>AllMart</h4>
-                                        </a>
+                                        </Link>
                                         <h4 className="text-center">Login</h4>
 
                                         <div className="mb-3">

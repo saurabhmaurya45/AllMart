@@ -43,8 +43,8 @@ export default function BillingInfo(props) {
                                 <div className="mb-4 mb-lg-0">
                                     <label className="form-label">Country</label>
                                     <select className="form-control form-select" title="Country" required="required" onChange={(e)=>{setBillingDetails({ ...billingDetails, country: e.target.value });}}>
-                                        <option value="0" selected={billingDetails?.country=="0"? "selected":""}>Select Country</option>
-                                        <option value="India" selected={billingDetails?.country=="0"? "selected":""}>India</option>
+                                        <option value="0" selected={billingDetails?.country==="0"? "selected":""}>Select Country</option>
+                                        <option value="India" selected={billingDetails?.country==="India"? "selected":""}>India</option>
 
 
                                     </select>

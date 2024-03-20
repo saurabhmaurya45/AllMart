@@ -3,17 +3,17 @@ import { Link } from "react-router-dom";
 import BillingDetails from "../components/checkout/billingDetails";
 import OrderSummary from "../components/checkout/orderSummary";
 import { useNavigate } from "react-router-dom";
-import useRazorpay from "react-razorpay";
 import toast from "react-hot-toast";
 import { cartLength } from "../contextApi/navbarValues";
 
 export default function CheckoutPage() {
     const navigate = useNavigate()
-    const [Razorpay] = useRazorpay();
+    // const [Razorpay] = useRazorpay();
     const getPreviousOrder = JSON.parse(localStorage.getItem("orderInfo")) || [];
     const userData = JSON.parse(sessionStorage.getItem("userData"));
+    //eslint-disable-next-line
     const [cartLengthValue,setCartLengthValue] = useContext(cartLength);
-    console.log(setCartLengthValue);
+    // console.log(setCartLengthValue);
     const [billingDetails, setBillingDetails] = useState({
         id: "",
         userName: "",
@@ -41,8 +41,8 @@ export default function CheckoutPage() {
 
 
     const proceesToPayButtonHandler = () => {
-        console.log("clicked")
-        console.log(userData);
+        // console.log("clicked")
+        // console.log(userData);
         if (userData == null) {
             navigate("/login")
         }
@@ -50,8 +50,8 @@ export default function CheckoutPage() {
         handlePayment();
     }
     const handlePayment = async () => {
-        if (billingDetails.name === "" || billingDetails.address == "" || billingDetails.postalCode == "" || billingDetails.phone == "" 
-        || billingDetails.city == "" || billingDetails.country == "" || billingDetails.shippingAddress.name == "" || billingDetails.shippingAddress.phone == "" || billingDetails.shippingAddress.address == "") {
+        if (billingDetails.name === "" || billingDetails.address === "" || billingDetails.postalCode === "" || billingDetails.phone === "" 
+        || billingDetails.city === "" || billingDetails.country === "" || billingDetails.shippingAddress.name === "" || billingDetails.shippingAddress.phone === "" || billingDetails.shippingAddress.address === "") {
           return toast.error("All fields are required", {
             position: "top-center",
             autoClose: 1000,
@@ -118,7 +118,7 @@ export default function CheckoutPage() {
             postalCode: userData?.address.postalCode,
             order_receipt: 'order_rcptid_'.concat(Math.round(Math.random() * 10000000000)),
         });
-
+        // eslint-disable-next-line
     }, []);
 
     // console.log(billingDetails)
