@@ -3,6 +3,9 @@ import logo from "../../assets/images/logo.png";
 import "./loginCard.css";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+
 export default function LoginCard() {
     const navigate = useNavigate();
     const [username, setUsername] = useState("kminchelle");
@@ -24,6 +27,7 @@ export default function LoginCard() {
             const data = await res.json();
 
             if (data.message !== "Invalid credentials") {
+                toast.success("Login Successfully!");
                 const wholeData = await fetch("https://dummyjson.com/user/me", {
                     method: 'GET',
                     headers: {
@@ -33,14 +37,17 @@ export default function LoginCard() {
                 const userData = await wholeData.json();
                 sessionStorage.setItem("userData", JSON.stringify(userData));
                 navigate(-1);
+            }else{
+                toast.error("Invalid Credential!")
+            
             }
         }
         response();
     }
-
-    // console.log(username, password);
+    
     return (
         <div>
+            <ToastContainer />
             <div className="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
                 data-sidebar-position="fixed" data-header-position="fixed">
                 <div

@@ -5,7 +5,9 @@ import SingleProductImages from '../components/singleProductImages/singleProduct
 import SingleProductDescription from '../components/singleProductDescription/singleProductDescription';
 import SingleProduct from '../components/singleproduct/singleproduct';
 import Skeleton from 'react-loading-skeleton';
-
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 
 function SingleProductPage() {
     const { id } = useParams();
@@ -53,6 +55,18 @@ function SingleProductPage() {
 
     return (
         <>
+            <ToastContainer position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                limit={3} />
             <section className="py-5">
                 <div className="container">
                     <div className="row gx-5">
@@ -86,7 +100,7 @@ function SingleProductPage() {
                         {loading ? (
                             Array.from({ length: 4 }).map((_, index) => (
                                 <div className="border" key={index}>
-                                    <Skeleton height={250} width={250}/>
+                                    <Skeleton height={250} width={250} />
                                 </div>
                             ))
                         ) : (

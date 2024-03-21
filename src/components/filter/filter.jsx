@@ -35,13 +35,13 @@ export default function Filter({ setSelectedCategories, selectedCategories, setS
     }, [])
     
     return (
-        <div className="filter">
+        <div className="filter border position-fixed" style={{width:"25%",height:"100vh", overflowY:"scroll"}} >
             <aside className="p-3 mx-2">
-                <h3 className="text-center">Filter </h3>
-                <div className="card mt-3">
-                    <article className="card-group-item ">
-                        <header className="card-header">
-                            <h6 className="title">Category </h6>
+                <h4 className="text-center">Filter </h4>
+                <div className="card  position-relative" style={{width:"100%",height:"45vh", overflowY:"scroll"}}>
+                    <article className="card-group-item "  >
+                        <header className="card-header position-sticky top-0" style={{width:"auto", backgroundColor:"#DDDDDD"}}>
+                            <h6 className="title ">Category </h6>
                         </header>
                         <div className="filter-content">
                             <div className="card-body">
@@ -82,9 +82,9 @@ export default function Filter({ setSelectedCategories, selectedCategories, setS
                         </div>
                     </article>
                 </div>
-                <div className="card mt-3">
+                <div className="card mt-4 position-relative" style={{height:"20vh", bottom:"10px"}}>
                     <article className="card-group-item ">
-                        <header className="card-header">
+                        <header className="card-header position-sticky top-0" style={{width:"auto", backgroundColor:"#DDDDDD"}}>
                             <h6 className="title">Sort </h6>
                         </header>
                         <div className="filter-content">

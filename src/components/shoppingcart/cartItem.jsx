@@ -1,7 +1,7 @@
 import React,{useContext} from 'react';
 import { cartLength, wishListLength } from '../../contextApi/navbarValues';
 import Quantity from '../quantity/quantity';
-
+import {toast} from 'react-toastify';
 
 export default function CartItem({ product, setCart, setWishList, setQuantity}) {
     const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
@@ -13,17 +13,21 @@ export default function CartItem({ product, setCart, setWishList, setQuantity}) 
         let updatedData = [];
 
         if (!(existingData.find(item => item.id === data.id))) {
+            
             updatedData = [...existingData, data];
             // Save the updated data back to local storage
             localStorage.setItem('wishListData', JSON.stringify(updatedData));
             setWishListLengthValue(wishListLengthValue+1);
-            deleteButtomHandler(data);
+            
         }
+        toast.success("Moved to Wishlist");
         // Update state with the new data
+        deleteButtomHandler(data);
         setWishList(updatedData);
     }
 
     const deleteButtomHandler = (data) => {
+        toast.error("Removed from Cart");
         // Retrieve existing data from local storage
         const existingData = JSON.parse(localStorage.getItem('cartData')) || [];
 

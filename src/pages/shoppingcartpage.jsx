@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import CartItem from "../components/shoppingcart/cartItem";
 import { Link } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 
 const ShoppingCartPage = () => {
     const [cart, setCart] = useState(localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : []);
@@ -11,7 +14,7 @@ const ShoppingCartPage = () => {
     const [quantity, setQuantity] = useState(1);
     const [wishList, setWishList] = useState(localStorage.getItem('wishListData') ? JSON.parse(localStorage.getItem('wishListData')) : []);
 
-    
+
 
     useEffect(() => {
         const cart = localStorage.getItem('cartData') ? JSON.parse(localStorage.getItem('cartData')) : [];
@@ -29,15 +32,27 @@ const ShoppingCartPage = () => {
 
             totalPrice = totalPriceWithoutTax + tax + shipping;
             setTax(tax);
-            setShipping(shipping );
+            setShipping(shipping);
             setPrice(totalPriceWithoutTax);
             setTotalPrice(totalPrice);
-            
+
         }
     }, [cart, wishList, quantity])
 
     return (
         <div>
+            <ToastContainer position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                limit={3} />
             <section className="h-100 gradient-custom">
                 <div className="container py-5">
                     <div className="row d-flex justify-content-center my-4">
@@ -50,9 +65,9 @@ const ShoppingCartPage = () => {
                                     {
                                         cart?.map((product, index) => (
                                             <CartItem product={product} key={index}
-                                                setCart = {setCart}
-                                                setWishList =  {setWishList}
-                                                setQuantity = {setQuantity}
+                                                setCart={setCart}
+                                                setWishList={setWishList}
+                                                setQuantity={setQuantity}
                                             />
                                         ))}
 

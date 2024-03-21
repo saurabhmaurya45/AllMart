@@ -1,8 +1,10 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { wishListLength } from "../../contextApi/navbarValues";
+import { toast } from 'react-toastify';
+
 export default function WishListHeart(props) {
-    const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
+    const [wishListLengthValue, setWishListLengthValue] = useContext(wishListLength);
     const { singleProductData } = props;
     const [wishList, setWishList] = useState([]);
     const [wishListLocalStorageData, setWishListLocalStorageData] = useState(() => {
@@ -11,7 +13,7 @@ export default function WishListHeart(props) {
 
     });
     const [isExist, setIsExist] = useState(false);
-    
+
     const addDataToLocalStorage = (data) => {
         // Retrieve existing data from local storage
         const existingData = JSON.parse(localStorage.getItem('wishListData')) || [];
@@ -20,11 +22,14 @@ export default function WishListHeart(props) {
 
         // Modify the existing data by adding newData
         if (existingData.find(item => item.id === data.id)) {
+            toast.error("Removed from Wishlist");
             updatedData = [...existingData.filter(item => item.id !== data.id)];
-            setWishListLengthValue(wishListLengthValue-1);
+            setWishListLengthValue(wishListLengthValue - 1);
+            
         } else {
             updatedData = [...existingData, data];
-            setWishListLengthValue(wishListLengthValue+1);
+            setWishListLengthValue(wishListLengthValue + 1);
+            toast.success("Added to Wishlist");
         }
 
         // Save the updated data back to local storage
@@ -32,7 +37,7 @@ export default function WishListHeart(props) {
 
         // Update state with the new data
         setWishList(updatedData);
-        
+
     };
 
     const handleWishList = (data) => {
@@ -54,11 +59,12 @@ export default function WishListHeart(props) {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [wishListLocalStorageData]);
 
-    
+
 
     return (
         <div>
-            <Link to = "#"
+            
+            <Link to="#"
                 className={"product-like-icon " + (isExist ? "text-danger" : "")}
                 data-tip={(isExist ? "Remove from" : "Add to") + " Wishlist"}
                 onClick={() => handleWishList(singleProductData)}>

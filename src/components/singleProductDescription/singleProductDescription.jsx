@@ -4,6 +4,7 @@ import "./singleProductDescription.css";
 import { wishListLength, cartLength } from "../../contextApi/navbarValues";
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
+import { toast } from 'react-toastify';
 
 export default function SingleProductDescription(props) {
     const [wishListLengthValue,setWishListLengthValue] = useContext(wishListLength);
@@ -13,11 +14,13 @@ export default function SingleProductDescription(props) {
 
 
     const addToCartButtonHandler = (product) => {
+        toast.success("Added to Cart");
         setCart([...cart, {...product, "quantity": 1}]);
         localStorage.setItem('cartData', JSON.stringify([...cart, product]));
         setCartLengthValue(cartLengthValue+1);
     }
     const addToWishListButtonHandler = (product) => {
+        toast.success("Added to Wishlist");
         setWishList([...wishList, product]);
         localStorage.setItem('wishListData', JSON.stringify([...wishList, product]));
         setWishListLengthValue(wishListLengthValue+1);

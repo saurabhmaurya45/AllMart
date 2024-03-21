@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from 'react-loading-skeleton';
 import SingleProduct from "../components/singleproduct/singleproduct";
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 
 export default function WishlistPage() {
     const [wishList, setWishList] = useState([]);
@@ -15,6 +18,18 @@ export default function WishlistPage() {
 
     return (
         <>
+            <ToastContainer position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                limit={3} />
             <h1 className="text-center">WishList</h1>
             <div className="container-fluid my-3">
                 <div className="d-flex">

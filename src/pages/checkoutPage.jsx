@@ -3,10 +3,11 @@ import { Link } from "react-router-dom";
 import BillingDetails from "../components/checkout/billingDetails";
 import OrderSummary from "../components/checkout/orderSummary";
 import { useNavigate } from "react-router-dom";
-import toast from "react-hot-toast";
 import { cartLength } from "../contextApi/navbarValues";
 import useRazorpay from "react-razorpay";
-
+import { ToastContainer, toast } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 export default function CheckoutPage() {
     const navigate = useNavigate()
     const [Razorpay] = useRazorpay();
@@ -14,7 +15,6 @@ export default function CheckoutPage() {
     const userData = JSON.parse(sessionStorage.getItem("userData"));
     //eslint-disable-next-line
     const [cartLengthValue, setCartLengthValue] = useContext(cartLength);
-    // console.log(setCartLengthValue);
     const [billingDetails, setBillingDetails] = useState({
         id: "",
         userName: "",
@@ -42,8 +42,6 @@ export default function CheckoutPage() {
 
 
     const proceesToPayButtonHandler = () => {
-        // console.log("clicked")
-        // console.log(userData);
         if (userData == null) {
             navigate("/login")
         }
@@ -54,7 +52,19 @@ export default function CheckoutPage() {
         if (billingDetails.name === "" || billingDetails.address === "" || billingDetails.postalCode === "" || billingDetails.phone === ""
             || billingDetails.city === "" || billingDetails.country === "" || billingDetails.shippingAddress.name === "" || billingDetails.shippingAddress.phone === "" || billingDetails.shippingAddress.address === "") {
             return toast.error("All fields are required", {
-                position: "top-center",
+                position: "top-right",
+                autoClose: 1000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            })
+        }
+        if (billingDetails.phone.length !== 10) {
+            return toast.error("Mobile no must be 10 digits", {
+                position: "top-right",
                 autoClose: 1000,
                 hideProgressBar: false,
                 closeOnClick: true,
@@ -124,14 +134,22 @@ export default function CheckoutPage() {
         // eslint-disable-next-line
     }, []);
 
-    // console.log(billingDetails)
-    // console.log(userData)
-
 
     return (
         <>
 
-
+            <ToastContainer position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                limit={3} />
             <div className="container checkout mt-5">
                 <div className="row">
                     <div className="col-xl-8 mb-3">

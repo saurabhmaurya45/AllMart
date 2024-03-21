@@ -4,6 +4,9 @@ import { useSearchParams } from 'react-router-dom';
 import Filter from '../components/filter/filter';
 import { useNavigate } from "react-router-dom";
 import Skeleton from 'react-loading-skeleton';
+import { ToastContainer } from 'react-toastify';
+import "react-toastify/dist/ReactToastify.css";
+import { Bounce } from "react-toastify";
 
 export default function AllProductPage() {
     const navigate = useNavigate();
@@ -74,10 +77,9 @@ export default function AllProductPage() {
         } else if (sortByPrice === "desc") {
             setHighToLow();
         } else {
-            console.log("reset")
             restList();
         }
-    
+
     }
 
     useEffect(() => {
@@ -96,15 +98,28 @@ export default function AllProductPage() {
         fetchDataBasedOnPrice();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [sortByPrice])
-    console.log(localData)
     return (
         <>
+            <ToastContainer position="top-right"
+                autoClose={1000}
+                hideProgressBar={false}
+                newestOnTop={true}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
+                transition={Bounce}
+                limit={3} />
             <div className="container-fluid mt-4 ">
                 <div className="row">
-                    <div className="col-md-3 mt-2 border ">
+                    <div className="col-md-3 mt-2  " >
+                        <div className="" >
                         <Filter setSelectedCategories={setSelectedCategories} selectedCategories={selectedCategories} sortByPrice={sortByPrice} setSortByPrice={setSortByPrice} />
+                        </div>
                     </div>
-                    <div className="col-md-9 d-flex flex-wrap gap-2  " style={{ justifyContent: "space-evenly" }}>
+                    <div className="col-md-9 d-flex flex-wrap gap-2 " style={{ justifyContent: "space-evenly"}}>
 
                         {loading ? ( // Render skeleton or actual content based on loading state
                             // Skeleton loading markup

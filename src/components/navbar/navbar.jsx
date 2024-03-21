@@ -1,16 +1,16 @@
-import React,{useContext} from "react";
+import React,{useContext,useState} from "react";
 import logoPath from "../../assets/images/logo.png";
 import "../../components/navbar/navbar.css";
-import { Link } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import { wishListLength, cartLength } from "../../contextApi/navbarValues";
-
+import {toast} from "react-toastify";
 
 
 function Navbar() {
     const wishListLengthValues = useContext(wishListLength);
     const cartLengthValues = useContext(cartLength);
-    const userData = JSON.parse(sessionStorage.getItem("userData"));
-
+    const [userData, setUserData] = useState(JSON.parse(sessionStorage.getItem("userData")));
+    const history = useNavigate();
     const navItems = [
         {
             name: 'Home',
@@ -48,7 +48,9 @@ function Navbar() {
 
     const logoutButtonHandler = () => {
         sessionStorage.removeItem("userData");
-        window.location.reload();
+        setUserData("");
+        history.push("/");
+        toast.success("Logout Successfully");
     }
 
     return (
@@ -100,7 +102,7 @@ function Navbar() {
                                             <li><Link className="dropdown-item" to="/history"><i className="fa fa-list"></i> Order History</Link></li>
                                             <li><Link className="dropdown-item" to="/wishlist"><i className="fa fa-heart"></i> My Wishlist</Link></li>
                                             <li><Link className="dropdown-item" to="/cart"><i className="fa fa-shopping-cart"></i> My Cart</Link></li>
-                                            <li><Link className="dropdown-item" onClick={logoutButtonHandler}><i className="fa fa-sign-out"></i> Logout</Link></li>
+                                            <li><Link to="#" className="dropdown-item" onClick={logoutButtonHandler}><i className="fa fa-sign-out"></i> Logout</Link></li>
                                         </ul>
                                     </li>
                                 </ul>
