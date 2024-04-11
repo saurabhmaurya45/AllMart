@@ -5,13 +5,13 @@ import { Link } from "react-router-dom";
 
 
 export default function SingleProductImages(props) {
-    const [thumbnail, setThumbnail] = useState("");
+    
+    const [thumbnail, setThumbnail] = useState(props?.thumbnail);
 
     useEffect(() => {
         setThumbnail(props?.thumbnail);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[])
-
+    },[thumbnail, props?.thumbnail])
     return (
         <>
             <aside className="col-lg-6 " >
