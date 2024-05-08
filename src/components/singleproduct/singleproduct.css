@@ -143,6 +143,16 @@
 .custom-cart-style{
     max-height: 375px;
 }
+
+.truncate {
+    display: inline-block; /* Ensure the element respects max-width */
+    max-width: calc(25ch + 1em); /* Set maximum width based on character count */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide any overflowing content */
+    text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
+  }
+  
+
 @media screen and (max-width: 990px){
     .product-grid{ margin: 0 0 30px; }
 }

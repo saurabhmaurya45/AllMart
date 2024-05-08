@@ -32,7 +32,7 @@ export default function SingleProduct(props) {
                 </ul>
             </div>
             <div className="product-content">
-                <h3 className="title"><Link to={"/singleproduct/" + singleProductData?.id}>{singleProductData.title && singleProductData.title}</Link></h3>
+                <h3 className="title truncate"><Link to={"/singleproduct/" + singleProductData?.id}>{singleProductData.title && singleProductData.title}</Link></h3>
                 <div className="price">Rs. {singleProductData.price && singleProductData.price }</div>
             </div>
         </div>
