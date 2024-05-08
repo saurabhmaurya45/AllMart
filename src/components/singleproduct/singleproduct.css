@@ -150,7 +150,7 @@
     white-space: nowrap; /* Prevent text from wrapping */
     overflow: hidden; /* Hide any overflowing content */
     text-overflow: ellipsis; /* Add ellipsis (...) to indicate truncated text */
-  }
+}
   
 
 @media screen and (max-width: 990px){
@@ -167,6 +167,9 @@
     .product-grid .product-image{
         height: 180px;
         width: 200px;
+    }
+    .truncate {
+        max-width: calc(10ch + 1em); /* Set maximum width based on character count */ 
     }
 }
 
