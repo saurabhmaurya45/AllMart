@@ -7,6 +7,8 @@ import Skeleton from 'react-loading-skeleton';
 import { ToastContainer } from 'react-toastify';
 import "react-toastify/dist/ReactToastify.css";
 import { Bounce } from "react-toastify";
+import { HiOutlineBars3CenterLeft } from "react-icons/hi2";
+import { RxCross1 } from "react-icons/rx";
 
 export default function AllProductPage() {
     const navigate = useNavigate();
@@ -19,6 +21,7 @@ export default function AllProductPage() {
     const [search, setSearch] = useState(queryParameters.get('search'));
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [sortByPrice, setSortByPrice] = useState("");
+    const [mobileSidebarShow,setMobileSidebarShow] = useState(false);
 
     const setLowToHigh = () => {
         const sortedProducts = productData.sort((a, b) => a.price - b.price);
@@ -113,13 +116,20 @@ export default function AllProductPage() {
                 transition={Bounce}
                 limit={3} />
             <div className="container-fluid mt-4 ">
-                <div className="row">
-                    <div className="col-md-3 mt-2  " >
-                        <div className="" >
+                <div className='sidebar-mobile-filter-humburger' onClick={()=>setMobileSidebarShow(!mobileSidebarShow)}>{mobileSidebarShow?<RxCross1/>:<HiOutlineBars3CenterLeft/>}</div>
+                <div className="filter-list-container filter-list-container-mobile " style={{display:(mobileSidebarShow?"block":"none")}}>
+                    <div className="" >
                         <Filter setSelectedCategories={setSelectedCategories} selectedCategories={selectedCategories} sortByPrice={sortByPrice} setSortByPrice={setSortByPrice} />
+                    </div>
+                </div>
+                <div className="row">
+                    <div className="filter-list-container col-md-3  mt-2  " >
+                        <div className="" >
+                            <Filter setSelectedCategories={setSelectedCategories} selectedCategories={selectedCategories} sortByPrice={sortByPrice} setSortByPrice={setSortByPrice} />
                         </div>
                     </div>
-                    <div className="col-md-9 d-flex flex-wrap gap-2 " style={{ justifyContent: "space-evenly"}}>
+
+                    <div className="col-md-9 col-sm-12 d-flex flex-wrap gap-1 main-item-container" style={{ justifyContent: "space-evenly" }}>
 
                         {loading ? ( // Render skeleton or actual content based on loading state
                             // Skeleton loading markup

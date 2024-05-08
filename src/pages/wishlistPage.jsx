@@ -33,17 +33,17 @@ export default function WishlistPage() {
             <h1 className="text-center">WishList</h1>
             <div className="container-fluid my-3">
                 <div className="d-flex">
-                    <div className="col-md-12 d-flex justify-items-center flex-wrap gap-4">
+                    <div className="col-md-12 d-flex justify-items-center flex-wrap gap-2">
                         {loading ? (
                             // Display skeleton loading if data is still loading
                             Array.from({ length: 6 }).map((_, index) => (
-                                <div key={index} className="p-2 border">
+                                <div key={index} className=" border">
                                     <Skeleton width={250} height={250} />
                                 </div>
                             ))
                         ) : (
                             wishList.map((product) => (
-                                <div key={product.id} className="p-2 border">
+                                <div key={product.id} className=" border">
                                     <SingleProduct SingleProduct={product} setUpdateWishList={setUpdateWishList} />
                                 </div>
                             ))

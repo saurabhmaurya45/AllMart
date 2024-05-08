@@ -96,7 +96,7 @@ function SingleProductPage() {
             <section className="py-5">
                 <div className="container-fluid">
                     <h2 className="mb-5 text-left">Related Products</h2>
-                    <div className="d-flex flex-wrap justify-evenly gap-3">
+                    <div className="d-flex flex-wrap justify-content-evenly gap-3">
                         {loading ? (
                             Array.from({ length: 4 }).map((_, index) => (
                                 <div className="border" key={index}>

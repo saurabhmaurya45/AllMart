@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './categorywiseproduct.css';
 import SingleProduct from '../singleproduct/singleproduct';
 import Skeleton from 'react-loading-skeleton';
+import { GoChevronRight, GoChevronLeft } from "react-icons/go";
 
 export default function CategoryWiseProduct() {
     const [productData, setProductData] = useState(null);
@@ -23,16 +24,28 @@ export default function CategoryWiseProduct() {
         groupedProducts[product.category].push(product);
     });
 
-    // Split products into chunks of four
-    const chunkedProducts = {};
 
-    groupedProducts && Object.keys(groupedProducts).forEach(category => {
-        chunkedProducts[category] = [];
-        const productsInCategory = groupedProducts[category];
-        for (let i = 0; i < productsInCategory.length; i += 4) {
-            chunkedProducts[category].push(productsInCategory.slice(i, i + 4));
+
+
+    const rightButtonHandler = (index) => {
+        const scroller = document.getElementById('category-wise-product'+index);
+        if (scroller.scrollLeft < scroller.scrollWidth - 100) {
+            scroller.scrollLeft += 100;
+        } else {
+            scroller.scrollLeft = scroller.scrollWidth;
         }
-    });
+        // checkButtonVisibility();
+    }
+
+    const leftButtonHandler = (index) => {
+        const scroller = document.getElementById('category-wise-product'+index);
+        if (scroller.scrollLeft > 100) {
+            scroller.scrollLeft -= 100;
+        } else {
+            scroller.scrollLeft = 0;
+        }
+        // checkButtonVisibility();
+    }
 
     useEffect(() => {
         fetchData();
@@ -42,32 +55,24 @@ export default function CategoryWiseProduct() {
         <>
             <div>
                 {productData ? (
-                    Object.keys(chunkedProducts).map((category, index) => (
+                    Object.keys(groupedProducts).map((category, index) => (
                         <div className="container" id="category-wise-product-corousel" key={"category" + index}>
-                            <div className="row">
-                                <div className="col-md-12">
-                                    <h2>Trending <b>{category}</b></h2>
-                                    <div id={category} className="carousel slide" data-ride="carousel" data-interval="0">
-                                        <div className="carousel-inner">
-                                            {chunkedProducts[category].map((productChunk, chunkIndex) => (
-                                                <div className={chunkIndex === 0 ? "carousel-item active" : "carousel-item"} key={"productChunk" + chunkIndex}>
-                                                    <div className="row">
-                                                        {productChunk.map((product, productIndex) => (
-                                                            <div className="col-md-3 col-sm-6" key={"product" + productIndex}>
-                                                                <SingleProduct SingleProduct={product} />
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            ))}
-                                        </div>
-                                        <a className="carousel-control-prev" href={"#" + category} data-slide="prev">
-                                            <i className="fa fa-angle-left"></i>
-                                        </a>
-                                        <a className="carousel-control-next" href={"#" + category} data-slide="next">
-                                            <i className="fa fa-angle-right"></i>
-                                        </a>
-                                    </div>
+                            <h2 >Trending <b>{category}</b></h2>
+                            <div className='d-flex'>
+                                <div className='button-icon-container button-icon-container-left' onClick={() => leftButtonHandler(index)}>
+                                    <button className='d-flex justify-center items-center'><GoChevronLeft /></button>
+                                </div>
+                                <div className="d-flex category-wise-product" id={"category-wise-product"+index} key={"product" + index}>
+                                    {
+                                        groupedProducts[category].map((productItem, index) => {
+                                            return (
+                                                <SingleProduct SingleProduct={productItem} />
+                                            )
+                                        })
+                                    }
+                                </div>
+                                <div className='button-icon-container button-icon-container-right ' onClick={() => rightButtonHandler(index)}>
+                                    <button className=' d-flex justify-center items-center  ' ><GoChevronRight /></button>
                                 </div>
                             </div>
                         </div>
