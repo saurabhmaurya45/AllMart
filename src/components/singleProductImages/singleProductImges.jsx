@@ -16,7 +16,7 @@ export default function SingleProductImages(props) {
         <>
             <aside className="col-lg-6 " >
                 <div className="border rounded-4 mb-3 d-flex justify-content-center" >
-                    <img className="" width="400" height="400" src={thumbnail} alt="..." />
+                    <img className="single-page-thumbnail" width="400" height="400" src={thumbnail} alt="..." />
                 </div>
                 <div className="d-flex justify-content-center mb-3">
                     {

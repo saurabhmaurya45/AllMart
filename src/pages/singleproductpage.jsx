@@ -69,7 +69,7 @@ function SingleProductPage() {
                 limit={3} />
             <section className="py-5">
                 <div className="container">
-                    <div className="row gx-5">
+                    <div className="row ">
                         {loading ? (
                             <>
                                 <div className="col-lg-6">
