@@ -23,10 +23,10 @@ export default function OrderSummary({billingDetails, setBillingDetails}) {
             const shipping = totalPriceWithoutTax > 1000 ? 0 : 50;
 
             totalPrice = totalPriceWithoutTax + tax + shipping;
-            setTax(tax);
-            setShipping(shipping );
-            setPrice(totalPriceWithoutTax);
-            setTotalPrice(totalPrice);
+            setTax(Math.round(tax));
+            setShipping(Math.round(shipping));
+            setPrice(Math.round(totalPriceWithoutTax));
+            setTotalPrice(Math.round(totalPrice));
             
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
