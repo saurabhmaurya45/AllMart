@@ -2,13 +2,13 @@ import React, { useEffect, useState } from "react";
 import Skeleton from 'react-loading-skeleton';
 import "../../components/filter/filter.css";
 
-function titleCase(str) {
-    str = str.toLowerCase().split(' ');
-    for (let i = 0; i < str.length; i++) {
-        str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-    }
-    return str.join(' ');
-}
+// function titleCase(str) {
+//     str = str.toLowerCase().split(' ');
+//     for (let i = 0; i < str.length; i++) {
+//         str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+//     }
+//     return str.join(' ');
+// }
 
 export default function Filter({ setSelectedCategories, selectedCategories, setSortByPrice, sortByPrice}) {
     const [allCategory, setAllCategory] = useState([]);
