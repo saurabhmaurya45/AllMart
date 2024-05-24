@@ -66,15 +66,15 @@ export default function Filter({ setSelectedCategories, selectedCategories, setS
                                     ))
                                 ) : (
                                     allCategory?.map((category) => (
-                                        <label key={category.id} className="form-check">
+                                        <label key={category.slug} className="form-check">
                                             <input
                                                 className="form-check-input"
                                                 type="checkbox"
-                                                value={category}
-                                                checked={selectedCategories.includes(category)}
-                                                onChange={() => handleCategoryChange(category)}
+                                                value={category.slug}
+                                                checked={selectedCategories.includes(category.slug)}
+                                                onChange={() => handleCategoryChange(category.slug)}
                                             />
-                                            <span className="form-check-label">{titleCase(category)}</span>
+                                            <span className="form-check-label">{category.name}</span>
                                         </label>
                                     ))
                                 )}
