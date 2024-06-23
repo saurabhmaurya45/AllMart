@@ -8,8 +8,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 export default function LoginCard() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState("kminchelle");
-    const [password, setPassword] = useState("0lelplR");
+    const [username, setUsername] = useState("emilys");
+    const [password, setPassword] = useState("emilyspass");
 
     const signInButtonHandler = () => {
         const response = async () => {
